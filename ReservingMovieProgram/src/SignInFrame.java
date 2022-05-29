@@ -8,16 +8,20 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class SignInPage extends JFrame{
+public class SignInFrame extends JFrame{
 	private LoginPanel loginPanel = new LoginPanel();
 	
-	public SignInPage() {
+	public SignInFrame() {
 		setContentPane(loginPanel);
 		setTitle("·Î±×ÀÎ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(320, 150);
 		setResizable(false);
 		setVisible(true);
+	}	
+	
+	public static void main(String[] args) {
+		new SignInFrame();
 	}
 	
 	
@@ -55,7 +59,7 @@ public class SignInPage extends JFrame{
 					id = idTextField.getText();
 					pw = pwTextField.getText();
 					
-					
+					login(id, pw);
 				}
 				
 			});
@@ -65,7 +69,4 @@ public class SignInPage extends JFrame{
 	}
 	
 	
-	public static void main(String[] args) {
-		new SignInPage();
-	}
 }
