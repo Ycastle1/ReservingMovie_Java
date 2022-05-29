@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,9 +35,11 @@ public class SignInFrame extends JFrame{
 		private JPasswordField pwTextField = new JPasswordField();
 		
 		private String id = "";
-		private String pw = "";	
+		private String pw;	
 		
 		private JButton loginButton = new JButton("로그인");
+		
+		private MenuFrame menuFrame;
 		
 		public LoginPanel() {
 			setLayout(null);
@@ -53,20 +57,23 @@ public class SignInFrame extends JFrame{
 			loginButton.setBounds(200, 20, 80, 60);
 			add(loginButton);
 			
+			
+			//엔터키 리스너도 추가할 수 있음 하장
 			loginButton.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
 					id = idTextField.getText();
 					pw = pwTextField.getText();
 					
-					login(id, pw);
+					ConnectDB connectDB = new ConnectDB();
+					
+					if (connectDB.login(id, pw)) {
+						System.out.println("성공");
+						menuFrame = new MenuFrame();
+					}
 				}
 				
 			});
-		}
-		
-		
-	}
-	
-	
+		}		
+	}		
 }
