@@ -12,7 +12,7 @@ public class ChooseFrame extends JFrame {
        jPanel.add(la);   
        add(jPanel);
        this.setSize(550, 700);
-       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
        this.setVisible(true);
    }
 	

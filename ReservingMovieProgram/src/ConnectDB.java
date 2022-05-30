@@ -10,20 +10,20 @@ public class ConnectDB {
 		Connection con = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver"); // µå¶óÀÌ¹ö ·Îµù.
-			System.out.println("µå¶óÀÌ¹ö ¿¬°á ¼º°ø");
+			Class.forName("com.mysql.cj.jdbc.Driver"); // ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½Îµï¿½.
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			
 			String url = "jdbc:mysql://localhost:3306/reservemoviedb?serverTimezome=Asia/Seoul";
 			String user = "root";
 			String password = "1234";
 			
-			con = DriverManager.getConnection(url, user, password); //  ¿¬°á °´Ã¼ »ý¼º¹®.
-			System.out.println("DB ¿¬°á ¼º°ø !");
+			con = DriverManager.getConnection(url, user, password); //  ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+			System.out.println("DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ !");
 			
 		} catch (ClassNotFoundException e) {
-			System.out.println("µå¶óÀÌ¹ö¸¦ Ã£Áö ¸øÇß½À´Ï´Ù.");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 		} catch (SQLException e) {
-			System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ½ÇÆÐ");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		}
 		
 		return con;
@@ -42,31 +42,25 @@ public class ConnectDB {
 			if (rs.next()){
 				String correctPassword = rs.getString("userPw");
 				if (pw.equals(correctPassword)) {		
-					System.out.println("¼º°ø");			
+					System.out.println("ï¿½ï¿½ï¿½ï¿½");			
 					return true;
 				}
 				else {
-					//ºñ¹Ð¹øÈ£ ¿À·ù		
-					System.out.println("ºñ¹Ð¹øÈ£ ¿À·ù");
+					//ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½		
+					System.out.println("ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½");
 					return false;
 				}
 			}				
 			else {		
-				//¾ÆÀÌµð ¿À·ù
-				System.out.println("¾ÆÀÌµð ¿À·ù");
+				//ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
+				System.out.println("ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½");
 				return false;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			//µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
-			System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù");
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			return false;
 		}
-	}
-
-
-	private boolean checkPw(String id, String pw) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

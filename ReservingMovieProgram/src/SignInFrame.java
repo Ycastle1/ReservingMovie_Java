@@ -15,21 +15,17 @@ public class SignInFrame extends JFrame{
 	
 	public SignInFrame() {
 		setContentPane(loginPanel);
-		setTitle("∑Œ±◊¿Œ");
+		setTitle("Î°úÍ∑∏Ïù∏");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(320, 150);
 		setResizable(false);
 		setVisible(true);
 	}	
 	
-	public static void main(String[] args) {
-		new SignInFrame();
-	}
-	
 	
 	public class LoginPanel extends JPanel {
-		private JLabel idLabel = new  JLabel(" æ∆ ¿Ã µ  :");
-		private JLabel pwLabel = new  JLabel("∫Òπ–π¯»£ :");
+		private JLabel idLabel = new  JLabel(" ÏïÑ Ïù¥ Îîî  : ");
+		private JLabel pwLabel = new  JLabel("ÎπÑÎ∞ÄÎ≤àÌò∏ :");
 		
 		private JTextField idTextField = new JTextField();
 		private JPasswordField pwTextField = new JPasswordField();
@@ -37,7 +33,7 @@ public class SignInFrame extends JFrame{
 		private String id = "";
 		private String pw;	
 		
-		private JButton loginButton = new JButton("∑Œ±◊¿Œ");
+		private JButton loginButton = new JButton("Î°úÍ∑∏Ïù∏");
 		
 		private MenuFrame menuFrame;
 		
@@ -58,7 +54,6 @@ public class SignInFrame extends JFrame{
 			add(loginButton);
 			
 			
-			//ø£≈Õ≈∞ ∏ÆΩ∫≥ µµ √ﬂ∞°«“ ºˆ ¿÷¿Ω «œ¿Â
 			loginButton.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
@@ -68,12 +63,16 @@ public class SignInFrame extends JFrame{
 					ConnectDB connectDB = new ConnectDB();
 					
 					if (connectDB.login(id, pw)) {
-						System.out.println("º∫∞¯");
+						System.out.println("ÔøΩÔøΩÔøΩÔøΩ");
 						menuFrame = new MenuFrame();
 					}
 				}
 				
 			});
 		}		
-	}		
+	}	
+	
+	public static void main(String[] args) {
+		new SignInFrame();
+	}
 }
