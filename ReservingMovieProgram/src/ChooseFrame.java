@@ -58,13 +58,13 @@ public class ChooseFrame extends JFrame implements ItemListener {
         new ChooseFrame();
 	}
 	public ChooseFrame() {
-		setTitle("예매하기");
+		setTitle("상세 선택");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Container contentPane = getContentPane();
 //		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 
-		String[] theathers = { "송내점", "주안점", "의정부점", "살려줘" };
+		String[] theathers = { "송내점", "주안점", "의정부점", "살려점" };
 		JList<String> theatherList = new JList<String>(theathers);
 		
 		theatherList.setBackground(new Color(255, 255, 255));
@@ -76,7 +76,7 @@ public class ChooseFrame extends JFrame implements ItemListener {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				if (theatherList.getSelectedValue()!=null) { //getSelectedValue() : 선택된 항목(Object 타입) 반환
+				if (theatherList.getSelectedValue()!=null) { //getSelectedValue() : �꽑�깮�맂 �빆紐�(Object ���엯) 諛섑솚
 					theatherName = (String)theatherList.getSelectedValue();
 				}
 			}
@@ -84,35 +84,35 @@ public class ChooseFrame extends JFrame implements ItemListener {
 		
 		
 		JLabel theatherCh = new JLabel("극장선택");
-		theatherCh.setFont(new Font("굴림", Font.BOLD, 16));
+		theatherCh.setFont(new Font("援대┝", Font.BOLD, 16));
 		theatherCh.setBounds(159, 10, 102, 60);
 		contentPane.add(theatherCh);
 		
-		JLabel theatherCh_1 = new JLabel("시간 선택");
-		theatherCh_1.setFont(new Font("굴림", Font.BOLD, 16));
+		JLabel theatherCh_1 = new JLabel("영화 시간");
+		theatherCh_1.setFont(new Font("援대┝", Font.BOLD, 16));
 		theatherCh_1.setBounds(512, 10, 102, 60);
 		contentPane.add(theatherCh_1);
 		
 		ButtonGroup timeGroup = new ButtonGroup();
 		
 		theatherCh_time1 = new JRadioButton(" 9:00 ~ 10:47");
-		theatherCh_time1.setFont(new Font("굴림", Font.PLAIN, 15));
+		theatherCh_time1.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time1.setBounds(463, 50, 153, 45);
 		
 		theatherCh_time2 = new JRadioButton("12:00 ~ 13:47");
-		theatherCh_time2.setFont(new Font("굴림", Font.PLAIN, 15));
+		theatherCh_time2.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time2.setBounds(461, 85, 153, 45);
 		
 		theatherCh_time3 = new JRadioButton("15:00 ~ 16:47");
-		theatherCh_time3.setFont(new Font("굴림", Font.PLAIN, 15));
+		theatherCh_time3.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time3.setBounds(461, 120, 153, 45);
 		
 		theatherCh_time4 = new JRadioButton("18:00 ~ 19:47");
-		theatherCh_time4.setFont(new Font("굴림", Font.PLAIN, 15));
+		theatherCh_time4.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time4.setBounds(461, 155, 157, 45);
 		
 		theatherCh_time5 = new JRadioButton("21:00 ~ 22:47");
-		theatherCh_time5.setFont(new Font("굴림", Font.PLAIN, 15));
+		theatherCh_time5.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time5.setBounds(461, 190, 146, 45);
 		
 		timeGroup.add(theatherCh_time1);
@@ -135,15 +135,15 @@ public class ChooseFrame extends JFrame implements ItemListener {
 		theatherCh_time5.addItemListener(this);
 		
 		JLabel peopleCh = new JLabel("인원 선택");
-		peopleCh.setFont(new Font("굴림", Font.BOLD, 16));
+		peopleCh.setFont(new Font("援대┝", Font.BOLD, 16));
 		peopleCh.setBounds(160, 250, 77, 60);
 		contentPane.add(peopleCh);
 		
-		JLabel peopleCh_ad = new JLabel("성인");
+		JLabel peopleCh_ad = new JLabel("성인(15,000원)");
 		peopleCh_ad.setBounds(57, 320 - 20, 138, 45);
 		contentPane.add(peopleCh_ad);
 		
-		JLabel peopleCh_cl = new JLabel("청소년");
+		JLabel peopleCh_cl = new JLabel("청소년(10,000원)");
 		peopleCh_cl.setBounds(57, 418 - 30, 138, 45);
 		contentPane.add(peopleCh_cl);
 		
@@ -226,7 +226,7 @@ public class ChooseFrame extends JFrame implements ItemListener {
 		mCalendarPanel.setLayout(null);
 		add(mCalendarPanel);
 
-		choiceCalendarLabel.setFont(new Font("굴림", Font.BOLD, 16));
+		choiceCalendarLabel.setFont(new Font("援대┝", Font.BOLD, 16));
 		choiceCalendarLabel.setBounds(65, 0, 77, 60);
 		mCalendarPanel.add(choiceCalendarLabel);
 		
@@ -241,14 +241,14 @@ public class ChooseFrame extends JFrame implements ItemListener {
 				int month = c.get(Calendar.MONTH)+1;
 				int day = c.get(Calendar.DAY_OF_MONTH);
 				//System.out.println(year + "," + month +"," +day);
-				date = Integer.toString(year) + "년 " + Integer.toString(month) +"월 " + Integer.toString(day) +"일";
+				date = Integer.toString(year) + "�뀈 " + Integer.toString(month) +"�썡 " + Integer.toString(day) +"�씪";
 			}
 		});
 		
 		JButton btnNewButton = new JButton("예매하기");
 		btnNewButton.setBackground(SystemColor.controlLtHighlight);
 		btnNewButton.setForeground(Color.RED);
-		btnNewButton.setFont(new Font("굴림", Font.BOLD, 14));
+		btnNewButton.setFont(new Font("援대┝", Font.BOLD, 14));
 		btnNewButton.setBounds(290, 591, 197, 60);
 		contentPane.add(btnNewButton);
 		
@@ -258,13 +258,14 @@ public class ChooseFrame extends JFrame implements ItemListener {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnNewButton) {
 					ticket = new TicketDTO();
-					ticket.setScreenTime(screenTime);
+					ticket.setscreenTime(screenTime);
 					ticket.setTheatherName(theatherName);
 					ticket.setDate(date);
-					ticket.setPersonCount(adultCount + childrenCount);
-					ticket.setCost(adultCount * 10000 + childrenCount * 7000);
+					ticket.setpersonCount(adultCount + childrenCount);
+					ticket.setcost(adultCount * 10000 + childrenCount * 7000);
 					seatView = new SeatView(ticket);
 					dispose();
+				
 				}
 			}
 		});
