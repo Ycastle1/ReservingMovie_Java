@@ -1,144 +1,316 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JRadioButton;
-import javax.swing.JList;
 import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
+import java.awt.Container;
 import java.awt.Font;
-import javax.swing.JTable;
-import javax.swing.JButton;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Calendar;
 
-public class ChooseFrame extends JFrame {
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-	private JPanel contentPane;
+import com.toedter.calendar.JCalendar;
 
+public class ChooseFrame extends JFrame implements ItemListener {
+	
+	private TicketDTO ticket;
+	
+	private String theatherName;
+	private String screenTime;
+	private String date;
+
+	private int childrenCount;
+	private int adultCount;
+	private int cost;
+	
+	private JRadioButton theatherCh_time1;
+	private JRadioButton theatherCh_time2;
+	private JRadioButton theatherCh_time3;
+	private JRadioButton theatherCh_time4;
+	private JRadioButton theatherCh_time5;
+	
+	private	JRadioButton peopleCh_1;
+	private	JRadioButton peopleCh_2;
+	private	JRadioButton peopleCh_3;
+	private	JRadioButton peopleCh_4;
+	private	JRadioButton peopleCh_5;
+	private	JRadioButton peopleCh_6;
+	private	JRadioButton peopleCh_7;
+	private	JRadioButton peopleCh_8;
+	private	JRadioButton peopleCh_9;
+	private	JRadioButton peopleCh_10;
+	
+	private SeatView seatView;
+//	private JPanel contentPane;
+	
 	public static void main(String[] args) {
         new ChooseFrame();
 	}
 	public ChooseFrame() {
-		setTitle("øπ∏≈«œ±‚");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		setTitle("ÏòàÎß§ÌïòÍ∏∞");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		Container contentPane = getContentPane();
+//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
+
+		String[] theathers = { "ÏÜ°ÎÇ¥Ï†ê", "Ï£ºÏïàÏ†ê", "ÏùòÏ†ïÎ∂ÄÏ†ê", "ÏÇ¥Î†§Ï§ò" };
+		JList<String> theatherList = new JList<String>(theathers);
 		
-		JList list = new JList();
-		list.setBackground(new Color(255, 255, 255));
-		list.setToolTipText("");
-		list.setBounds(70, 62, 251, 169);
-		contentPane.add(list);
+		theatherList.setBackground(new Color(255, 255, 255));
+		theatherList.setToolTipText("");
+		theatherList.setBounds(70, 62, 251, 169);
+		contentPane.add(theatherList);
 		
-		JLabel theatherCh = new JLabel("±ÿ¿Âº±≈√");
-		theatherCh.setFont(new Font("±º∏≤", Font.BOLD, 16));
+		theatherList.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (theatherList.getSelectedValue()!=null) { //getSelectedValue() : ÏÑ†ÌÉùÎêú Ìï≠Î™©(Object ÌÉÄÏûÖ) Î∞òÌôò
+					theatherName = (String)theatherList.getSelectedValue();
+				}
+			}
+		});
+		
+		
+		JLabel theatherCh = new JLabel("Í∑πÏû•ÏÑ†ÌÉù");
+		theatherCh.setFont(new Font("Íµ¥Î¶º", Font.BOLD, 16));
 		theatherCh.setBounds(159, 10, 102, 60);
 		contentPane.add(theatherCh);
 		
-		JLabel theatherCh_1 = new JLabel("Ω√∞£ º±≈√");
-		theatherCh_1.setFont(new Font("±º∏≤", Font.BOLD, 16));
+		JLabel theatherCh_1 = new JLabel("ÏãúÍ∞Ñ ÏÑ†ÌÉù");
+		theatherCh_1.setFont(new Font("Íµ¥Î¶º", Font.BOLD, 16));
 		theatherCh_1.setBounds(512, 10, 102, 60);
 		contentPane.add(theatherCh_1);
 		
-		JRadioButton theatherCh_time = new JRadioButton("9:00 ~ 10:47");
-		theatherCh_time.setFont(new Font("±º∏≤", Font.PLAIN, 15));
-		theatherCh_time.setBounds(461, 48, 153, 45);
-		contentPane.add(theatherCh_time);
+		ButtonGroup timeGroup = new ButtonGroup();
 		
-		JRadioButton theatherCh_time1 = new JRadioButton("12:00 ~ 13:47");
-		theatherCh_time1.setFont(new Font("±º∏≤", Font.PLAIN, 15));
-		theatherCh_time1.setBounds(461, 86, 153, 45);
+		theatherCh_time1 = new JRadioButton(" 9:00 ~ 10:47");
+		theatherCh_time1.setFont(new Font("Íµ¥Î¶º", Font.PLAIN, 15));
+		theatherCh_time1.setBounds(463, 50, 153, 45);
+		
+		theatherCh_time2 = new JRadioButton("12:00 ~ 13:47");
+		theatherCh_time2.setFont(new Font("Íµ¥Î¶º", Font.PLAIN, 15));
+		theatherCh_time2.setBounds(461, 85, 153, 45);
+		
+		theatherCh_time3 = new JRadioButton("15:00 ~ 16:47");
+		theatherCh_time3.setFont(new Font("Íµ¥Î¶º", Font.PLAIN, 15));
+		theatherCh_time3.setBounds(461, 120, 153, 45);
+		
+		theatherCh_time4 = new JRadioButton("18:00 ~ 19:47");
+		theatherCh_time4.setFont(new Font("Íµ¥Î¶º", Font.PLAIN, 15));
+		theatherCh_time4.setBounds(461, 155, 157, 45);
+		
+		theatherCh_time5 = new JRadioButton("21:00 ~ 22:47");
+		theatherCh_time5.setFont(new Font("Íµ¥Î¶º", Font.PLAIN, 15));
+		theatherCh_time5.setBounds(461, 190, 146, 45);
+		
+		timeGroup.add(theatherCh_time1);
+		timeGroup.add(theatherCh_time2);
+		timeGroup.add(theatherCh_time3);
+		timeGroup.add(theatherCh_time4);
+		timeGroup.add(theatherCh_time5);
+		
+
 		contentPane.add(theatherCh_time1);
-		
-		JRadioButton theatherCh_time2 = new JRadioButton("15:00 ~ 16:47");
-		theatherCh_time2.setFont(new Font("±º∏≤", Font.PLAIN, 15));
-		theatherCh_time2.setBounds(461, 120, 153, 45);
 		contentPane.add(theatherCh_time2);
-		
-		JRadioButton theatherCh_time3 = new JRadioButton("18:00 ~ 19:47");
-		theatherCh_time3.setFont(new Font("±º∏≤", Font.PLAIN, 15));
-		theatherCh_time3.setBounds(461, 155, 157, 45);
 		contentPane.add(theatherCh_time3);
-		
-		JRadioButton theatherCh_time4 = new JRadioButton("21:00 ~ 22:47");
-		theatherCh_time4.setFont(new Font("±º∏≤", Font.PLAIN, 15));
-		theatherCh_time4.setBounds(461, 186, 146, 45);
 		contentPane.add(theatherCh_time4);
+		contentPane.add(theatherCh_time5);
 		
-		JLabel peopleCh = new JLabel("¿Œø¯ º±≈√");
-		peopleCh.setFont(new Font("±º∏≤", Font.BOLD, 16));
-		peopleCh.setBounds(160, 295, 77, 60);
+		theatherCh_time1.addItemListener(this);
+		theatherCh_time2.addItemListener(this);
+		theatherCh_time3.addItemListener(this);
+		theatherCh_time4.addItemListener(this);
+		theatherCh_time5.addItemListener(this);
+		
+		JLabel peopleCh = new JLabel("Ïù∏Ïõê ÏÑ†ÌÉù");
+		peopleCh.setFont(new Font("Íµ¥Î¶º", Font.BOLD, 16));
+		peopleCh.setBounds(160, 250, 77, 60);
 		contentPane.add(peopleCh);
 		
-		JLabel peopleCh_ad = new JLabel("º∫¿Œ");
-		peopleCh_ad.setBounds(57, 349, 138, 45);
+		JLabel peopleCh_ad = new JLabel("ÏÑ±Ïù∏");
+		peopleCh_ad.setBounds(57, 320 - 20, 138, 45);
 		contentPane.add(peopleCh_ad);
 		
-		JLabel peopleCh_cl = new JLabel("√ªº“≥‚");
-		peopleCh_cl.setBounds(57, 442, 138, 45);
+		JLabel peopleCh_cl = new JLabel("Ï≤≠ÏÜåÎÖÑ");
+		peopleCh_cl.setBounds(57, 418 - 30, 138, 45);
 		contentPane.add(peopleCh_cl);
 		
-		JRadioButton peopleCh_1 = new JRadioButton("0");
-		peopleCh_1.setBounds(57, 400, 45, 23);
+		ButtonGroup childrenGroup = new ButtonGroup();
+		
+		peopleCh_1 = new JRadioButton("0", true);
+		peopleCh_1.setBounds(57, 370 - 30, 45, 23);
+		
+		peopleCh_2 = new JRadioButton("1");
+		peopleCh_2.setBounds(106, 370 - 30, 45, 23);
+		
+		peopleCh_3 = new JRadioButton("2");
+		peopleCh_3.setBounds(159, 370 - 30, 45, 23);
+		
+		peopleCh_4 = new JRadioButton("3");
+		peopleCh_4.setBounds(208, 370 - 30, 45, 23);
+		
+		peopleCh_5 = new JRadioButton("4");
+		peopleCh_5.setBounds(257, 370 - 30, 45, 23);
+		
+		childrenGroup.add(peopleCh_1);
+		childrenGroup.add(peopleCh_2);
+		childrenGroup.add(peopleCh_3);
+		childrenGroup.add(peopleCh_4);
+		childrenGroup.add(peopleCh_5);
+		
+
 		contentPane.add(peopleCh_1);
-		
-		JRadioButton peopleCh_2 = new JRadioButton("1");
-		peopleCh_2.setBounds(106, 400, 45, 23);
 		contentPane.add(peopleCh_2);
-		
-		JRadioButton peopleCh_3 = new JRadioButton("3");
-		peopleCh_3.setBounds(208, 400, 45, 23);
 		contentPane.add(peopleCh_3);
-		
-		JRadioButton peopleCh_4 = new JRadioButton("2");
-		peopleCh_4.setBounds(159, 400, 45, 23);
 		contentPane.add(peopleCh_4);
-		
-		JRadioButton peopleCh_5 = new JRadioButton("1");
-		peopleCh_5.setBounds(57, 500, 45, 23);
 		contentPane.add(peopleCh_5);
 		
-		JRadioButton peopleCh_6 = new JRadioButton("1");
-		peopleCh_6.setBounds(106, 500, 45, 23);
+		peopleCh_1.addItemListener(this);
+		peopleCh_2.addItemListener(this);
+		peopleCh_3.addItemListener(this);
+		peopleCh_4.addItemListener(this);
+		peopleCh_5.addItemListener(this);
+		
+		ButtonGroup adultGroup = new ButtonGroup();
+		
+		peopleCh_6 = new JRadioButton("0", true);
+		peopleCh_6.setBounds(57, 470 - 30, 45, 23);
+		
+		peopleCh_7 = new JRadioButton("1");
+		peopleCh_7.setBounds(106, 470 - 30, 45, 23);
+		
+		peopleCh_8 = new JRadioButton("2");
+		peopleCh_8.setBounds(159, 470 - 30, 45, 23);
+		
+		peopleCh_9 = new JRadioButton("3");
+		peopleCh_9.setBounds(208, 470 - 30, 45, 23);
+		
+		peopleCh_10 = new JRadioButton("4");
+		peopleCh_10.setBounds(257, 470 - 30, 45, 23);
+		
+		adultGroup.add(peopleCh_6);
+		adultGroup.add(peopleCh_7);
+		adultGroup.add(peopleCh_8);
+		adultGroup.add(peopleCh_9);
+		adultGroup.add(peopleCh_10);
+		
 		contentPane.add(peopleCh_6);
-		
-		JRadioButton peopleCh_7 = new JRadioButton("2");
-		peopleCh_7.setBounds(159, 500, 45, 23);
 		contentPane.add(peopleCh_7);
-		
-		JRadioButton peopleCh_8 = new JRadioButton("3");
-		peopleCh_8.setBounds(208, 500, 45, 23);
 		contentPane.add(peopleCh_8);
-		
-		JRadioButton peopleCh_9 = new JRadioButton("4");
-		peopleCh_9.setBounds(257, 400, 45, 23);
 		contentPane.add(peopleCh_9);
+		contentPane.add(peopleCh_10);		
+
+		peopleCh_6.addItemListener(this);
+		peopleCh_7.addItemListener(this);
+		peopleCh_8.addItemListener(this);
+		peopleCh_9.addItemListener(this);
+		peopleCh_10.addItemListener(this);
 		
-		JRadioButton peopleCh_10 = new JRadioButton("4");
-		peopleCh_10.setBounds(257, 500, 45, 23);
-		contentPane.add(peopleCh_10);
+		JPanel mCalendarPanel = new JPanel();
+		JLabel choiceCalendarLabel = new JLabel("ÎÇ†Ïßú ÏÑ†ÌÉù");		
+		JCalendar calendar = new JCalendar();
 		
-		JLabel peopleCh_11 = new JLabel("≥Ø¬• º±≈√");
-		peopleCh_11.setFont(new Font("±º∏≤", Font.BOLD, 16));
-		peopleCh_11.setBounds(493, 295, 77, 60);
-		contentPane.add(peopleCh_11);
+		mCalendarPanel.setBounds(450, 250, 221, 325);
+		mCalendarPanel.setLayout(null);
+		add(mCalendarPanel);
+
+		choiceCalendarLabel.setFont(new Font("Íµ¥Î¶º", Font.BOLD, 16));
+		choiceCalendarLabel.setBounds(65, 0, 77, 60);
+		mCalendarPanel.add(choiceCalendarLabel);
 		
-		JButton btnNewButton = new JButton("øπ∏≈«œ±‚");
+		calendar.setBounds(0, 55, 220, 200);
+		mCalendarPanel.add(calendar);
+		
+		calendar.addPropertyChangeListener("calendar", new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent e) {
+				final Calendar c = (Calendar) e.getNewValue();
+				int year = c.get(Calendar.YEAR);
+				int month = c.get(Calendar.MONTH)+1;
+				int day = c.get(Calendar.DAY_OF_MONTH);
+				//System.out.println(year + "," + month +"," +day);
+				date = Integer.toString(year) + "ÎÖÑ " + Integer.toString(month) +"Ïõî " + Integer.toString(day) +"Ïùº";
+			}
+		});
+		
+		JButton btnNewButton = new JButton("ÏòàÎß§ÌïòÍ∏∞");
 		btnNewButton.setBackground(SystemColor.controlLtHighlight);
 		btnNewButton.setForeground(Color.RED);
-		btnNewButton.setFont(new Font("±º∏≤", Font.BOLD, 14));
+		btnNewButton.setFont(new Font("Íµ¥Î¶º", Font.BOLD, 14));
 		btnNewButton.setBounds(290, 591, 197, 60);
 		contentPane.add(btnNewButton);
 		
-
-		
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnNewButton) {
+					ticket = new TicketDTO();
+					ticket.setScreenTime(screenTime);
+					ticket.setTheatherName(theatherName);
+					ticket.setDate(date);
+					ticket.setPersonCount(adultCount + childrenCount);
+					ticket.setCost(adultCount * 10000 + childrenCount * 7000);
+					seatView = new SeatView(ticket);
+					dispose();
+				}
+			}
+		});
 		
 		setSize(800,700);
 		setVisible(true);
+	}
+	
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		
+		if(theatherCh_time1.isSelected()) {
+			screenTime = theatherCh_time1.getText();
+		}else if(theatherCh_time2.isSelected()) {
+			screenTime = theatherCh_time2.getText();
+		} else if(theatherCh_time3.isSelected()) {
+			screenTime = theatherCh_time3.getText();
+		} else if(theatherCh_time4.isSelected()) {
+			screenTime = theatherCh_time4.getText();
+		} else if(theatherCh_time5.isSelected()) {
+			screenTime = theatherCh_time5.getText();
+		}
+			
+		if(peopleCh_1.isSelected()) {
+			adultCount = 0;
+		} else if(peopleCh_2.isSelected()) {
+			adultCount = 1;
+		} else if(peopleCh_3.isSelected()) {
+			adultCount = 2;
+		} else if(peopleCh_4.isSelected()) {
+			adultCount = 3;
+		} else if(peopleCh_5.isSelected()) {
+			adultCount = 4;
+		}
+		
+		if(peopleCh_6.isSelected()) {
+			childrenCount = 0;
+		} else if(peopleCh_7.isSelected()) {
+			childrenCount = 1;
+		} else if(peopleCh_8.isSelected()) {
+			childrenCount = 2;
+		} else if(peopleCh_9.isSelected()) {
+			childrenCount = 3;
+		} else if(peopleCh_10.isSelected()) {
+			childrenCount = 4;
+		}
 	}
 }
