@@ -51,7 +51,7 @@ public class ChooseFrame extends JFrame implements ItemListener {
 	private	JRadioButton peopleCh_9;
 	private	JRadioButton peopleCh_10;
 	
-	private SeatView seatView;
+	private SeatFrame seatFrame;
 //	private JPanel contentPane;
 	
 	public static void main(String[] args) {
@@ -263,7 +263,7 @@ public class ChooseFrame extends JFrame implements ItemListener {
 					ticket.setDate(date);
 					ticket.setpersonCount(adultCount + childrenCount);
 					ticket.setcost(adultCount * 10000 + childrenCount * 7000);
-					seatView = new SeatView(ticket);
+					seatFrame = new SeatFrame();
 					dispose();
 				
 				}
