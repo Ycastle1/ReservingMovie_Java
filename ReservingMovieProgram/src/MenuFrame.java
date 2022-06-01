@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,6 +20,28 @@ public class MenuFrame extends JFrame{
 	ImageIcon img5 = new ImageIcon("./Moive_image/moive5.jpg");
 	ImageIcon img6 = new ImageIcon("./Moive_image/moive6.jpg");
 	
+	Image img1_1 = img1.getImage();
+	Image img2_1 = img2.getImage();
+	Image img3_1 = img3.getImage();
+	Image img4_1 = img4.getImage();
+	Image img5_1 = img5.getImage();
+	Image img6_1 = img6.getImage();
+	
+	Image changeImg1 = img1_1.getScaledInstance(210,370, Image.SCALE_SMOOTH);
+	Image changeImg2 = img2_1.getScaledInstance(200,300, Image.SCALE_SMOOTH);
+	Image changeImg3 = img3_1.getScaledInstance(200,288, Image.SCALE_SMOOTH);
+	Image changeImg4 = img4_1.getScaledInstance(200,288, Image.SCALE_SMOOTH);
+	Image changeImg5 = img5_1.getScaledInstance(190,330, Image.SCALE_SMOOTH);
+	Image changeImg6 = img6_1.getScaledInstance(190,300, Image.SCALE_SMOOTH);
+	
+	ImageIcon lastimg1 = new ImageIcon(changeImg1);
+	ImageIcon lastimg2 = new ImageIcon(changeImg2);
+	ImageIcon lastimg3 = new ImageIcon(changeImg3);
+	ImageIcon lastimg4 = new ImageIcon(changeImg4);
+	ImageIcon lastimg5 = new ImageIcon(changeImg5);
+	ImageIcon lastimg6 = new ImageIcon(changeImg6);
+	
+	
     public MenuFrame() {
     	setTitle("극장");
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,12 +51,12 @@ public class MenuFrame extends JFrame{
     	  
     	JLabel label = new JLabel("영화를 선택해주세요.");
     	  
-    	JButton movie1 = new JButton(img1);
-    	JButton movie2 = new JButton(img2);
-    	JButton movie3 = new JButton(img3);
-    	JButton movie4 = new JButton(img4);
-    	JButton movie5 = new JButton(img5);
-    	JButton movie6 = new JButton(img6);
+    	JButton movie1 = new JButton(lastimg1);
+    	JButton movie2 = new JButton(lastimg2);
+    	JButton movie3 = new JButton(lastimg3);
+    	JButton movie4 = new JButton(lastimg4);
+    	JButton movie5 = new JButton(lastimg5);
+    	JButton movie6 = new JButton(lastimg6);
     	  
     	movie1.setPreferredSize(new Dimension(170, 290));
     	movie2.setPreferredSize(new Dimension(170, 290));
@@ -51,6 +74,9 @@ public class MenuFrame extends JFrame{
     	
     	panel.add(label);
     	 
+
+    	
+    	
     	panel2.add(movie1);
     	panel2.add(movie2);
     	panel2.add(movie3);

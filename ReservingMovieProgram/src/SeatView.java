@@ -31,25 +31,19 @@ public class SeatView extends JFrame {
          txtScreen.setHorizontalAlignment(SwingConstants.CENTER);
          txtScreen.setText("SCREEN");
 	    add(txtScreen,BorderLayout.NORTH);
-	    add(new SeatGrid(),BorderLayout.CENTER);
-	     
+	    add(new SecondSeat(),BorderLayout.CENTER);
+		add(new seatokpanel(),BorderLayout.SOUTH);
 	     this.setVisible(true);
 
 	}
-	public class SeatGrid extends JPanel{
-        public SeatGrid() {
+	public class SecondSeat extends JPanel{
+		char Acode = 65; // 이건 아스키코드값으로 a부터 값을 받도록 했으
+    	boolean seatflag[][] = new boolean[5][5];
+        JButton seat[][] = new JButton[5][5];
+        public SecondSeat() {
         	setSize(20,20);
         	setLayout(new FlowLayout(0,40,40));
-           	JButton btnNewButton = new JButton("예매하기");
-           	btnNewButton.setPreferredSize(new Dimension(400,40));
-           	btnNewButton.setBackground(Color.black);
-           	btnNewButton.setForeground(SystemColor.textHighlightText);
-   		   
-   		     
-        	char Acode = 65; // 이건 아스키코드값으로 a부터 값을 받도록 했으
-        	boolean seatflag[][] = new boolean[5][5];
-            JButton seat[][] = new JButton[5][5];
-        
+
         	for(int i = 0; i<5; i++) {
         		int k= i; //윤성아 그냥 i,j값을 배열에 넣으면 이상하게 에러가 떠서 해결이 안된다 ㅠㅠ 그래서 담을 값을 변경하니 성공
         		String Aseat = String.valueOf(Acode);
@@ -73,15 +67,38 @@ public class SeatView extends JFrame {
 					}
 				   
                 });
- 
+
         		}
         		Acode++;
         	}
-        	add(btnNewButton);
+        
         	setVisible(true);
         }
 
 }
+	public class seatokpanel extends JPanel {
+	
+		public seatokpanel() {
+           	JButton btnOkButton = new JButton("예매하기");
+           	btnOkButton.setPreferredSize(new Dimension(400,40));
+           	btnOkButton.setBackground(Color.black);
+           	btnOkButton.setForeground(SystemColor.textHighlightText);
+           	
+            btnOkButton.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+                  System.out.println("성공");
+				}
+            	
+            });
+           	
+           	
+           	add(btnOkButton);
+            this.setVisible(true);
+		}
+	}
 
 	
 }
