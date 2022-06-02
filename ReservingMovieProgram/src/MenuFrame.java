@@ -43,11 +43,12 @@ public class MenuFrame extends JFrame{
 	ImageIcon lastimg6 = new ImageIcon(changeImg6);
 	
 	
-    public MenuFrame() {
+    public MenuFrame(TicketDTO ticket) {
     	setTitle("극장");
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	setResizable(false);
     	
-    	ticket = new TicketDTO();
+    	this.ticket = ticket;
     	JPanel panel = new JPanel();
     	JPanel panel2 = new JPanel();
     	  
@@ -97,9 +98,9 @@ public class MenuFrame extends JFrame{
     	setVisible(true);
     }	
     
-	public static void main(String[] args) {
-		new MenuFrame();
-	}
+//	public static void main(String[] args) {
+//		new MenuFrame();
+//	}
 	
 	class MenuActionListener implements ActionListener{
 		@Override

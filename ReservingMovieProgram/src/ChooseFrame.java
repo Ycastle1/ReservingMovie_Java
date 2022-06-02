@@ -57,6 +57,8 @@ public class ChooseFrame extends JFrame implements ItemListener {
 	public ChooseFrame(TicketDTO ticket) {
 		setTitle("상세 선택");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		
 		Container contentPane = getContentPane();
 //		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
@@ -238,8 +240,7 @@ public class ChooseFrame extends JFrame implements ItemListener {
 				int year = c.get(Calendar.YEAR);
 				int month = c.get(Calendar.MONTH)+1;
 				int day = c.get(Calendar.DAY_OF_MONTH);
-				//System.out.println(year + "," + month +"," +day);
-				date = Integer.toString(year) + ". " +Integer.toString(month) + ". " + Integer.toString(day);
+				date = year + "." + month + "." + day;
 			}
 		});
 		
@@ -254,12 +255,17 @@ public class ChooseFrame extends JFrame implements ItemListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ConnectDB con = new ConnectDB();
 				if(e.getSource() == btnNewButton) {
 					ticket.setTheatherName(theatherName);
 					ticket.setDate(date);
 					ticket.setScreenTime(screenTime);
 					ticket.setPersonCount(adultCount + childrenCount);
 					ticket.setCost(adultCount * 15000 + childrenCount * 10000);
+					
+
+					ticket.setRoomNumber(con.getRoomName(ticket));
+					
 					seatFrame = new SeatFrame(ticket);
 					dispose();
 				

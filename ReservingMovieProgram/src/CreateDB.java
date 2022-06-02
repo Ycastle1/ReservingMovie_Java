@@ -39,8 +39,7 @@ public class CreateDB {
 					+ "  `customerPassword` VARCHAR(20) NOT NULL,"
 					+ "  `customerName` VARCHAR(10) NOT NULL,"
 					+ "  `customerEmail` VARCHAR(25) NOT NULL,"
-					+ "  `customerPhoneNumber` VARCHAR(10) NOT NULL,"
-					+ "  `customertblcol` VARCHAR(45) NOT NULL,"
+					+ "  `customerPhoneNumber` VARCHAR(12) NOT NULL,"
 					+ "  PRIMARY KEY (`customerId`));") == 1)
 				return;
 		} catch (SQLException e) {
@@ -114,7 +113,7 @@ public class CreateDB {
 		try {
 			Statement stmt = con.createStatement();
 			
-			if (stmt.executeUpdate("CREATE TABLE `reservemoviedb`.`new_table` ("
+			if (stmt.executeUpdate("CREATE TABLE `reservemoviedb`.`tickettbl` ("
 					+ "  `customerName` VARCHAR(20) NOT NULL,"
 					+ "  `customerId` VARCHAR(10) NOT NULL,"
 					+ "  `seatnumber` VARCHAR(4) NOT NULL,"
@@ -212,7 +211,7 @@ public class CreateDB {
 	
 
 
-			pstmt.setString(4, "22. 6. 3");
+			pstmt.setString(4, "2022.6.3");
 			pstmt.setString(1, "송내점");
 			pstmt.setString(3, "범죄도시2");
 			pstmt.setString(2, "1");
@@ -507,7 +506,7 @@ public class CreateDB {
 			pstmt = con.prepareStatement(sql.toString());
 	
 
-			pstmt.setString(6, "22. 6. 3");
+			pstmt.setString(6, "2022.6.3");
 			pstmt.setString(1, "송내점");
 			pstmt.setString(3, "범죄도시2");
 			pstmt.setString(2, "1");

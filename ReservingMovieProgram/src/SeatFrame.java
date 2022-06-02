@@ -16,9 +16,13 @@ import javax.swing.SwingConstants;
 
 public class SeatFrame extends JFrame {
 	TicketDTO ticket;
+	SeatDTO seatDto;
+	
 	ConnectDB con;
+	
 	SeatPanel seatPanel;
 	InfoPanel infoPanel;
+	
 	String[] seatArray;
 	ArrayList<JLabel> seatInfoLabel;
 	
@@ -31,16 +35,14 @@ public class SeatFrame extends JFrame {
 		
 		this.ticket = ticket;
 		
-//       	
-//       	ticket = new TicketDTO();
-//       	ticket.setMovieName("범죄도시2");
-//       	ticket.setTheatherName("송내점");
-//       	ticket.setRoomNumber("1");
-//       	ticket.setDate("220603");
-//       	ticket.setScreenTime("09:00");
-//       	ticket.setPersonCount(4);
-       	
        	personCount = ticket.getPersonCount();
+       	
+       	seatDto = new SeatDTO();
+       	seatDto.setMovieName(ticket.getMovieName());
+       	seatDto.setTheatherName(ticket.getTheatherName());
+       	seatDto.setRoomNumber(ticket.getRoomNumber());
+       	seatDto.setDate(ticket.getDate());
+       	seatDto.setScreenTime(ticket.getScreenTime());
 
 		infoPanel = new InfoPanel();
 		infoPanel.setBounds(600, 0, 170, 700);
@@ -115,7 +117,7 @@ public class SeatFrame extends JFrame {
 	        			
 	        			ticket.setSeatNumber(seat[i][j].getText());
 	                 
-//	        			if (!con.checkReserved(ticket)) {
+	        			if (!con.checkReserved(ticket)) {
 	        				seat[i][j].addMouseListener(new MouseAdapter() {
 		        				@Override
 								public void mouseClicked(MouseEvent e) {
@@ -125,9 +127,7 @@ public class SeatFrame extends JFrame {
 		        						seatflag[k][l] = true;
 	        							i = 1;
 		        						for (JLabel label : seatInfoLabel) {
-	        								System.out.println(i);
 		        							if (label.getText().equals("좌석 " + i)) {
-		        								System.out.println(i);
 		        								label.setText(seat[k][l].getText());
 		        								break;
 		        							}
@@ -149,9 +149,9 @@ public class SeatFrame extends JFrame {
 		        					}
 		        				}
 		        			});
-//	        			} else {
-//	        				seat[i][j].setEnabled(false);
-//	        			}
+	        			} else {
+	        				seat[i][j].setEnabled(false);
+	        			}
 	        		}
 	        		Acode++;
 	        	}
@@ -175,12 +175,19 @@ public class SeatFrame extends JFrame {
     			        		Acode++;
     			        	}
     						String seatNumber = seatArray[0];
+    						seatDto.setSeatNumber(seatArray[0]);
+        					con.reserveSeat(seatDto);
     						for (int i = 1; i < seatArray.length; i++) {
     							seatNumber = seatNumber.concat(", ");
     							seatNumber = seatNumber.concat(seatArray[i]);
+    							
+    							seatDto.setSeatNumber(seatArray[i]);
+            					con.reserveSeat(seatDto);
     						}
     						ticket.setSeatNumber(seatNumber);
     					}
+    					System.out.println(ticket.getCustomerName() + "123123");
+    					con.addTicketTblColumns(ticket);
     					new ResultFrame(); 
     				}
     			});

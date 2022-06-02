@@ -24,7 +24,7 @@ public class SignInFrame extends JFrame{
 	}	
 	
 	
-	public class LoginPanel extends JPanel {
+	class LoginPanel extends JPanel {
 		private JLabel idLabel = new  JLabel(" 아 이 디  : ");
 		private JLabel pwLabel = new  JLabel("비밀번호 :");
 		
@@ -35,8 +35,10 @@ public class SignInFrame extends JFrame{
 		private String pw;	
 		
 		private JButton loginButton = new JButton("로그인");
+		private JButton signupButton = new JButton("회원가입");
 		
 		private MenuFrame menuFrame;
+		private SignUpFrame signUpFrame;
 		
 		public LoginPanel() {
 			setLayout(null);
@@ -46,13 +48,16 @@ public class SignInFrame extends JFrame{
 			add(idLabel);
 			add(pwLabel);
 			
-			idTextField.setBounds(80, 20, 110, 20);
-			pwTextField.setBounds(80, 60, 110, 20);
+			idTextField.setBounds(80, 20, 110, 30);
+			pwTextField.setBounds(80, 60, 110, 30);
 			add(idTextField);
 			add(pwTextField);
 			
-			loginButton.setBounds(200, 20, 80, 60);
+			loginButton.setBounds(205, 20, 85, 30);
+			signupButton.setBounds(205, 60, 85, 30);
 			add(loginButton);
+			add(signupButton);
+			
 			
 			
 			loginButton.addActionListener(new ActionListener() {
@@ -64,12 +69,23 @@ public class SignInFrame extends JFrame{
 					ConnectDB connectDB = new ConnectDB();
 					
 					if (connectDB.login(id, pw)) {
-						System.out.println("����");
+						System.out.println("login ok");
 						ticket.setCustomerId(id);
-						menuFrame = new MenuFrame(/*ticket*/);
+						ticket.setCustomerName(connectDB.getCustomerNameById(id));
+						System.out.println(ticket.getCustomerName());
+						menuFrame = new MenuFrame(ticket);
+						dispose();
 					}
 				}
 				
+			});
+			
+			signupButton.addActionListener(new ActionListener () {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					signUpFrame = new SignUpFrame();					
+				}
 			});
 		}		
 	}	

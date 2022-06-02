@@ -1,4 +1,6 @@
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -7,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class SignUPFrame extends JFrame {
+public class SignUpFrame extends JFrame {
 
 	private JPanel cpane;
 	private JTextField textField_name;
@@ -15,13 +17,15 @@ public class SignUPFrame extends JFrame {
 	private JTextField textField_pw;
 	private JTextField textField_em;
 	private JTextField textField_num;
+	
+	private CustomerDTO customer;
 
 	public static void main(String[] args) {
-        new SignUPFrame();
+        new SignUpFrame();
 	}
-	public SignUPFrame() {
+	public SignUpFrame() {
 		setTitle("회원가입 화면");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		cpane = new JPanel();
 		cpane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(cpane);
@@ -63,8 +67,8 @@ public class SignUPFrame extends JFrame {
 		
 		textField_name.setColumns(10);
 		textField_id.setColumns(10);
-		textField_pw.setColumns(10);
-		textField_em.setColumns(10);
+		textField_pw.setColumns(20);
+		textField_em.setColumns(20);
 		textField_num.setColumns(10);
 		
 		cpane.add(la_log);
@@ -85,7 +89,23 @@ public class SignUPFrame extends JFrame {
 		btnokok.setBounds(296, 576, 179, 59);
 		cpane.add(btnokok);
 		
+		btnokok.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				customer = new CustomerDTO();
+				
+				customer.setCustomerId(textField_id.getText());
+				customer.setCustomerPassword(textField_pw.getText());
+				customer.setCustomerName(textField_name.getText());
+				customer.setCustomerEmail(textField_em.getText());
+				customer.setCustomerPhoneNumber(textField_num.getText());
+				
+				ConnectDB con = new ConnectDB();
+				
+				con.registerCustomer(customer);
+			}
+		});
 		
 		
 		setSize(800,700);
