@@ -18,7 +18,7 @@ public class CreateDB {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver"); // ����̹� �ε�.
-			System.out.println("����̹� ���� ����");
+			System.out.println("연결중");
 			
 			String url = "jdbc:mysql://localhost:3306/reservemoviedb?serverTimezome=Asia/Seoul";
 			String user = "root";
@@ -28,9 +28,9 @@ public class CreateDB {
 			System.out.println("DB 연결 성고 !");
 			
 		} catch (ClassNotFoundException e) {
-			System.out.println("����̹��� ã�� ���߽��ϴ�.");
+			System.out.println("클래스");
 		} catch (SQLException e) {
-			System.out.println("�����ͺ��̽� ���� ����");
+			System.out.println("SQL");
 		}
 		
 		return con;
@@ -79,11 +79,11 @@ public class CreateDB {
 			Statement stmt = con.createStatement();
 			
 			if (stmt.executeUpdate("CREATE TABLE `reservemoviedb`.`seattbl` (\r\n"
-					+ "  `theathername` VARCHAR(30) NOT NULL,\r\n"
+					+ "  `theathername` VARCHAR(10) NOT NULL,\r\n"
 					+ "  `roomnumber` VARCHAR(2) NOT NULL,\r\n"
 					+ "  `seatnumber` VARCHAR(4) NOT NULL,\r\n"
 					+ "  `screentime` VARCHAR(6) NOT NULL,\r\n"
-					+ "  `day` VARCHAR(7) NOT NULL,\r\n"
+					+ "  `date` VARCHAR(7) NOT NULL,\r\n"
 					+ "  `reserved` INT NULL);\r\n"
 					+ "") == 1)
 				System.out.println("테이블 설치 성공");

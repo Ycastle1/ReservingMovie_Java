@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 
 public class SignInFrame extends JFrame{
 	private LoginPanel loginPanel = new LoginPanel();
+	private TicketDTO ticket = new TicketDTO();
 	
 	public SignInFrame() {
 		setContentPane(loginPanel);
@@ -64,7 +65,8 @@ public class SignInFrame extends JFrame{
 					
 					if (connectDB.login(id, pw)) {
 						System.out.println("����");
-						menuFrame = new MenuFrame();
+						ticket.setCustomerId(id);
+						menuFrame = new MenuFrame(/*ticket*/);
 					}
 				}
 				

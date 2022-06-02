@@ -40,7 +40,7 @@ public class ConnectDB {
 		sql.append("roomnumber = ? AND ");
 		sql.append("seatnumber = ? AND ");
 		sql.append("screentime = ? AND ");
-		sql.append("day = ?;");
+		sql.append("date = ?;");
 		
 		PreparedStatement pstmt;
 		try {

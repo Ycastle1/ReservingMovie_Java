@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MenuFrame extends JFrame{
+	TicketDTO ticket;
 	
 	ImageIcon img1 = new ImageIcon("./Moive_image/moive1.png");
 	ImageIcon img2 = new ImageIcon("./Moive_image/moive2.jpg");
@@ -45,7 +46,8 @@ public class MenuFrame extends JFrame{
     public MenuFrame() {
     	setTitle("극장");
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	  
+    	
+    	ticket = new TicketDTO();
     	JPanel panel = new JPanel();
     	JPanel panel2 = new JPanel();
     	  
@@ -65,6 +67,13 @@ public class MenuFrame extends JFrame{
     	movie5.setPreferredSize(new Dimension(170, 290));
     	movie6.setPreferredSize(new Dimension(170, 290));
     	
+    	movie1.setName("범죄도시");
+    	movie2.setName("닥터스트레인지2");
+    	movie3.setName("베놈");
+    	movie4.setName("스파이더맨3");
+    	movie5.setName("공기살인");
+    	movie6.setName("마녀2");
+    	
     	movie1.addActionListener(new MenuActionListener());
     	movie2.addActionListener(new MenuActionListener());
     	movie3.addActionListener(new MenuActionListener());
@@ -73,9 +82,6 @@ public class MenuFrame extends JFrame{
     	movie6.addActionListener(new MenuActionListener());
     	
     	panel.add(label);
-    	 
-
-    	
     	
     	panel2.add(movie1);
     	panel2.add(movie2);
@@ -98,9 +104,12 @@ public class MenuFrame extends JFrame{
 	class MenuActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			JButton btn = (JButton) e.getSource();
 			System.out.println("성공");
-			new ChooseFrame();
-			setVisible(false);
+			ticket.setMovieName(btn.getName());
+			System.out.println(ticket.getMovieName());
+			new ChooseFrame(ticket);
+//			setVisible(false);
 		}    	  
 	}
 }

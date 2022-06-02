@@ -98,25 +98,25 @@ public class TicketDTO {
     public void setDate(String date) {
         this.date = date;
     }
-    public String getscreenTime() {
+    public String getScreenTime() {
         return screenTime;
     }
 
-    public void setscreenTime(String screenTime) {
+    public void setScreenTime(String screenTime) {
         this.screenTime = screenTime;
     }
-    public int getpersonCount() {
+    public int getPersonCount() {
         return personCount;
     }
 
-    public void setpersonCount(int personCount) {
+    public void setPersonCount(int personCount) {
         this.personCount = personCount;
     }
-    public int getcost() {
+    public int getCost() {
         return cost;
     }
 
-    public void setcost(int cost) {
+    public void setCost(int cost) {
         this.cost = cost;
     }
 }

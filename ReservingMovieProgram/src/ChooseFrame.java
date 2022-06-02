@@ -52,18 +52,16 @@ public class ChooseFrame extends JFrame implements ItemListener {
 	private	JRadioButton peopleCh_10;
 	
 	private SeatFrame seatFrame;
-//	private JPanel contentPane;
+	private JPanel contentPane;
 	
-	public static void main(String[] args) {
-        new ChooseFrame();
-	}
-	public ChooseFrame() {
+	public ChooseFrame(TicketDTO ticket) {
 		setTitle("상세 선택");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Container contentPane = getContentPane();
 //		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 
+		this.ticket = ticket;
 		String[] theathers = { "송내점", "주안점", "의정부점", "살려점" };
 		JList<String> theatherList = new JList<String>(theathers);
 		
@@ -95,23 +93,23 @@ public class ChooseFrame extends JFrame implements ItemListener {
 		
 		ButtonGroup timeGroup = new ButtonGroup();
 		
-		theatherCh_time1 = new JRadioButton(" 9:00 ~ 10:47");
+		theatherCh_time1 = new JRadioButton("  9:00 ~ 10:47");
 		theatherCh_time1.setFont(new Font("援대┝", Font.PLAIN, 15));
-		theatherCh_time1.setBounds(463, 50, 153, 45);
+		theatherCh_time1.setBounds(461, 50, 153, 45);
 		
-		theatherCh_time2 = new JRadioButton("12:00 ~ 13:47");
+		theatherCh_time2 = new JRadioButton("12:00 ~ 13:47 ");
 		theatherCh_time2.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time2.setBounds(461, 85, 153, 45);
 		
-		theatherCh_time3 = new JRadioButton("15:00 ~ 16:47");
+		theatherCh_time3 = new JRadioButton("15:00 ~ 16:47 ");
 		theatherCh_time3.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time3.setBounds(461, 120, 153, 45);
 		
-		theatherCh_time4 = new JRadioButton("18:00 ~ 19:47");
+		theatherCh_time4 = new JRadioButton("18:00 ~ 19:47 ");
 		theatherCh_time4.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time4.setBounds(461, 155, 157, 45);
 		
-		theatherCh_time5 = new JRadioButton("21:00 ~ 22:47");
+		theatherCh_time5 = new JRadioButton("21:00 ~ 22:47 ");
 		theatherCh_time5.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time5.setBounds(461, 190, 146, 45);
 		
@@ -241,7 +239,7 @@ public class ChooseFrame extends JFrame implements ItemListener {
 				int month = c.get(Calendar.MONTH)+1;
 				int day = c.get(Calendar.DAY_OF_MONTH);
 				//System.out.println(year + "," + month +"," +day);
-				date = Integer.toString(year) + "�뀈 " + Integer.toString(month) +"�썡 " + Integer.toString(day) +"�씪";
+				date = Integer.toString(year) + ". " +Integer.toString(month) + ". " + Integer.toString(day);
 			}
 		});
 		
@@ -257,13 +255,12 @@ public class ChooseFrame extends JFrame implements ItemListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnNewButton) {
-					ticket = new TicketDTO();
-					ticket.setscreenTime(screenTime);
 					ticket.setTheatherName(theatherName);
 					ticket.setDate(date);
-					ticket.setpersonCount(adultCount + childrenCount);
-					ticket.setcost(adultCount * 10000 + childrenCount * 7000);
-					seatFrame = new SeatFrame();
+					ticket.setScreenTime(screenTime);
+					ticket.setPersonCount(adultCount + childrenCount);
+					ticket.setCost(adultCount * 15000 + childrenCount * 10000);
+					seatFrame = new SeatFrame(ticket);
 					dispose();
 				
 				}
