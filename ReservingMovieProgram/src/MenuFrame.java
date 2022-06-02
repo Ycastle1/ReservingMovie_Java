@@ -67,9 +67,9 @@ public class MenuFrame extends JFrame{
     	movie5.setPreferredSize(new Dimension(170, 290));
     	movie6.setPreferredSize(new Dimension(170, 290));
     	
-    	movie1.setName("범죄도시");
+    	movie1.setName("범죄도시2");
     	movie2.setName("닥터스트레인지2");
-    	movie3.setName("베놈");
+    	movie3.setName("베놈2");
     	movie4.setName("스파이더맨3");
     	movie5.setName("공기살인");
     	movie6.setName("마녀2");

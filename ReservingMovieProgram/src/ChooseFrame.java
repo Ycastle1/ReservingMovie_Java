@@ -62,7 +62,7 @@ public class ChooseFrame extends JFrame implements ItemListener {
 		contentPane.setLayout(null);
 
 		this.ticket = ticket;
-		String[] theathers = { "송내점", "주안점", "의정부점", "살려점" };
+		String[] theathers = { "송내점", "주안점", "의정부점", "부천점" };
 		JList<String> theatherList = new JList<String>(theathers);
 		
 		theatherList.setBackground(new Color(255, 255, 255));
@@ -93,23 +93,23 @@ public class ChooseFrame extends JFrame implements ItemListener {
 		
 		ButtonGroup timeGroup = new ButtonGroup();
 		
-		theatherCh_time1 = new JRadioButton("  9:00 ~ 10:47");
+		theatherCh_time1 = new JRadioButton("9:00 ~ 10:47");
 		theatherCh_time1.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time1.setBounds(461, 50, 153, 45);
 		
-		theatherCh_time2 = new JRadioButton("12:00 ~ 13:47 ");
+		theatherCh_time2 = new JRadioButton("12:00 ~ 13:47");
 		theatherCh_time2.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time2.setBounds(461, 85, 153, 45);
 		
-		theatherCh_time3 = new JRadioButton("15:00 ~ 16:47 ");
+		theatherCh_time3 = new JRadioButton("15:00 ~ 16:47");
 		theatherCh_time3.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time3.setBounds(461, 120, 153, 45);
 		
-		theatherCh_time4 = new JRadioButton("18:00 ~ 19:47 ");
+		theatherCh_time4 = new JRadioButton("18:00 ~ 19:47");
 		theatherCh_time4.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time4.setBounds(461, 155, 157, 45);
 		
-		theatherCh_time5 = new JRadioButton("21:00 ~ 22:47 ");
+		theatherCh_time5 = new JRadioButton("21:00 ~ 22:47");
 		theatherCh_time5.setFont(new Font("援대┝", Font.PLAIN, 15));
 		theatherCh_time5.setBounds(461, 190, 146, 45);
 		
