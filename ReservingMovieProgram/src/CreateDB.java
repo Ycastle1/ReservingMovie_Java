@@ -40,7 +40,7 @@ public class CreateDB {
 					+ "  `customerName` VARCHAR(10) NOT NULL,"
 					+ "  `customerEmail` VARCHAR(25) NOT NULL,"
 					+ "  `customerPhoneNumber` VARCHAR(12) NOT NULL,"
-					+ "  PRIMARY KEY (`customerId`));") == 1)
+					+ "  PRIMARY KEY (`customerId`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;") == 1)
 				return;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -56,7 +56,7 @@ public class CreateDB {
 			if (stmt.executeUpdate("CREATE TABLE `reservemoviedb`.`movietbl` ("
 					+ "  `movieName` VARCHAR(20) NOT NULL,"
 					+ "  `moviePosterSrc` VARCHAR(45) NULL,"
-					+ "  PRIMARY KEY (`movieName`));") == 1)
+					+ "  PRIMARY KEY (`movieName`))ENGINE=InnoDB DEFAULT CHARSET=utf8;") == 1)
 				return;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -77,7 +77,7 @@ public class CreateDB {
 					+ "  `screenTime` VARCHAR(13) NOT NULL,"
 					+ "  CONSTRAINT `FK_movietbl_theathertbl`"
 					+ "  FOREIGN KEY (`movieName`)"
-					+ "  REFERENCES `reservemoviedb`.`movietbl` (`movieName`));") == 1)
+					+ "  REFERENCES `reservemoviedb`.`movietbl` (`movieName`))ENGINE=InnoDB DEFAULT CHARSET=utf8;") == 1)
 				return;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -100,7 +100,7 @@ public class CreateDB {
 					+ "  `reserved` INT NULL,"
 					+ "  CONSTRAINT `FK_movietbl_seattbl`"
 					+ "  FOREIGN KEY (`movieName`)"
-					+ "  REFERENCES `reservemoviedb`.`movietbl` (`movieName`));") == 1)
+					+ "  REFERENCES `reservemoviedb`.`movietbl` (`movieName`))ENGINE=InnoDB DEFAULT CHARSET=utf8;") == 1)
 				return;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -116,7 +116,7 @@ public class CreateDB {
 			if (stmt.executeUpdate("CREATE TABLE `reservemoviedb`.`tickettbl` ("
 					+ "  `customerName` VARCHAR(20) NOT NULL,"
 					+ "  `customerId` VARCHAR(10) NOT NULL,"
-					+ "  `seatnumber` VARCHAR(4) NOT NULL,"
+					+ "  `seatnumber` VARCHAR(45) NOT NULL,"
 					+ "  `theathername` VARCHAR(10) NOT NULL,"
 					+ "  `roomnumber` VARCHAR(2) NOT NULL,"
 					+ "  `movieName` VARCHAR(20) NOT NULL,"
@@ -126,7 +126,7 @@ public class CreateDB {
 					+ "  `personCount` INT NOT NULL,"
 					+ "  CONSTRAINT `FK_customertbl_tickettbl`"
 					+ "  FOREIGN KEY (`customerId`)"
-					+ "  REFERENCES `reservemoviedb`.`customertbl` (`customerId`));") == 1)
+					+ "  REFERENCES `reservemoviedb`.`customertbl` (`customerId`))ENGINE=InnoDB DEFAULT CHARSET=utf8;") == 1)
 				return;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

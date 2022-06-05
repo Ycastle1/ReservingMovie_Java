@@ -67,6 +67,12 @@ public class ChooseFrame extends JFrame implements ItemListener {
 		String[] theathers = { "송내점", "주안점", "의정부점", "부천점" };
 		JList<String> theatherList = new JList<String>(theathers);
 		
+		JLabel theatherCh = new JLabel("극장선택");
+		theatherCh.setFont(new Font("援대┝", Font.BOLD, 16));
+		theatherCh.setBounds(159, 10, 102, 60);
+		contentPane.add(theatherCh);
+		
+		//극장을 선택할 JList
 		theatherList.setBackground(new Color(255, 255, 255));
 		theatherList.setToolTipText("");
 		theatherList.setBounds(70, 62, 251, 169);
@@ -82,17 +88,12 @@ public class ChooseFrame extends JFrame implements ItemListener {
 			}
 		});
 		
-		
-		JLabel theatherCh = new JLabel("극장선택");
-		theatherCh.setFont(new Font("援대┝", Font.BOLD, 16));
-		theatherCh.setBounds(159, 10, 102, 60);
-		contentPane.add(theatherCh);
-		
 		JLabel theatherCh_1 = new JLabel("영화 시간");
 		theatherCh_1.setFont(new Font("援대┝", Font.BOLD, 16));
 		theatherCh_1.setBounds(512, 10, 102, 60);
 		contentPane.add(theatherCh_1);
 		
+		//상영시간을 선택할 버튼그룹
 		ButtonGroup timeGroup = new ButtonGroup();
 		
 		theatherCh_time1 = new JRadioButton("9:00 ~ 10:47");
@@ -147,6 +148,7 @@ public class ChooseFrame extends JFrame implements ItemListener {
 		peopleCh_cl.setBounds(57, 418 - 30, 138, 45);
 		contentPane.add(peopleCh_cl);
 		
+		//예매 티켓 갯수를 구하는 그룹박스(청소년)
 		ButtonGroup childrenGroup = new ButtonGroup();
 		
 		peopleCh_1 = new JRadioButton("0", true);
@@ -182,7 +184,8 @@ public class ChooseFrame extends JFrame implements ItemListener {
 		peopleCh_3.addItemListener(this);
 		peopleCh_4.addItemListener(this);
 		peopleCh_5.addItemListener(this);
-		
+
+		//예매 티켓 갯수를 구하는 그룹박스(성인)
 		ButtonGroup adultGroup = new ButtonGroup();
 		
 		peopleCh_6 = new JRadioButton("0", true);
@@ -222,6 +225,7 @@ public class ChooseFrame extends JFrame implements ItemListener {
 		JLabel choiceCalendarLabel = new JLabel("날짜 선택");		
 		JCalendar calendar = new JCalendar();
 		
+		//상영일자 선택하는 JCalendar
 		mCalendarPanel.setBounds(450, 250, 221, 325);
 		mCalendarPanel.setLayout(null);
 		add(mCalendarPanel);

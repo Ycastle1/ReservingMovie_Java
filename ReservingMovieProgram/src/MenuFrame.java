@@ -12,8 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MenuFrame extends JFrame{
+	RecentReservationFrame rrf;	
 	TicketDTO ticket;
-	
+	//영화 이미지 등록
 	ImageIcon img1 = new ImageIcon("./Moive_image/moive1.png");
 	ImageIcon img2 = new ImageIcon("./Moive_image/moive2.jpg");
 	ImageIcon img3 = new ImageIcon("./Moive_image/moive3.jpg");
@@ -51,9 +52,10 @@ public class MenuFrame extends JFrame{
     	this.ticket = ticket;
     	JPanel panel = new JPanel();
     	JPanel panel2 = new JPanel();
+    	JPanel panel3 = new JPanel();
     	  
     	JLabel label = new JLabel("영화를 선택해주세요.");
-    	  
+    	//영화 포스터가 삽입된 이미지버튼으로 프레임 구성
     	JButton movie1 = new JButton(lastimg1);
     	JButton movie2 = new JButton(lastimg2);
     	JButton movie3 = new JButton(lastimg3);
@@ -90,9 +92,21 @@ public class MenuFrame extends JFrame{
     	panel2.add(movie4);
     	panel2.add(movie5);
     	panel2.add(movie6);
+    	//예매한 내역을 보여주는 프레임으로 이동할 버튼
+    	JButton checkReservationBtn = new JButton("예매 내역");
+    	panel3.add(BorderLayout.CENTER, checkReservationBtn);
+    	checkReservationBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				rrf = new RecentReservationFrame(ticket);
+			}
+    		
+    	});
 
     	getContentPane().add(BorderLayout.NORTH, panel);
     	getContentPane().add(BorderLayout.CENTER, panel2);
+    	getContentPane().add(BorderLayout.SOUTH, panel3);
     	
     	setSize(550, 700);
     	setVisible(true);
@@ -110,7 +124,6 @@ public class MenuFrame extends JFrame{
 			ticket.setMovieName(btn.getName());
 			System.out.println(ticket.getMovieName());
 			new ChooseFrame(ticket);
-//			setVisible(false);
 		}    	  
 	}
 }

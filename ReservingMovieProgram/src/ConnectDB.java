@@ -12,19 +12,19 @@ public class ConnectDB {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver"); // ����̹� �ε�.
-			System.out.println("driver");
+			System.out.println("driver connected");
 			
 			String url = "jdbc:mysql://localhost:3306/reservemoviedb?serverTimezome=Asia/Seoul";
 			String user = "root";
 			String password = "1234";
 			
 			con = DriverManager.getConnection(url, user, password); //  ���� ��ü ������.
-			System.out.println("DB schema");
+			System.out.println("DB schema connected");
 			
 		} catch (ClassNotFoundException e) {
-			System.out.println("x1.");
+			System.out.println("x1.class");
 		} catch (SQLException e) {
-			System.out.println("x2");
+			System.out.println("x2.sql");
 		}
 		
 		return con;
@@ -75,19 +75,16 @@ public class ConnectDB {
 					return true;
 				}
 				else {
-					//��й�ȣ ����		
 					System.out.println("password");
 					return false;
 				}
 			}				
 			else {		
-				//���̵� ����
 				System.out.println("id");
 				return false;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			//�����ͺ��̽� ����
 			System.out.println("sql");
 			return false;
 		}
@@ -114,6 +111,40 @@ public class ConnectDB {
 			e.printStackTrace();
 			System.out.println("sql");
 			return "-1";
+		}
+	}
+	
+	public ResultSet getReservationResultSet(String id) {
+		String sql = "SELECT * FROM tickettbl where customerId = '" + id + "';";
+		Connection con = connectDB();
+		ResultSet rs = null;
+		
+		try {
+			Statement stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("sql");
+			return rs;
+		}
+	}
+	
+	public ResultSet getReservationTicket(String id) {
+		String sql = "SELECT * FROM tickettbl where customerId = '" + id + "';";
+		Connection con = connectDB();
+		ResultSet rs = null;
+		
+		try {
+			Statement stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("sql");
+			return rs;
 		}
 	}
 	
@@ -186,13 +217,11 @@ public class ConnectDB {
 	public void addTicketTblColumns(TicketDTO ticket) {
 		StringBuilder sql = new StringBuilder();
 		Connection con = connectDB();
-		System.out.println(ticket.getDate());
 		sql.append("INSERT INTO tickettbl VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 		
 		PreparedStatement pstmt;
 		try {
 			pstmt = con.prepareStatement(sql.toString());
-			System.out.println(ticket.getCustomerName());
 			pstmt.setString(1, ticket.getCustomerName());
 			pstmt.setString(2, ticket.getCustomerId());
 			pstmt.setString(3, ticket.getSeatNumber());

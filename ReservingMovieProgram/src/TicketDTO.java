@@ -19,6 +19,22 @@ public class TicketDTO {
     }
 
     public TicketDTO(String customerName, String customerId, String seatNumber, String theatherName, String roomNumber,
+			String movieName, String date, String screenTime, String reserveDate, int cost, int personCount) {
+		super();
+		this.customerName = customerName;
+		this.customerId = customerId;
+		this.seatNumber = seatNumber;
+		this.theatherName = theatherName;
+		this.roomNumber = roomNumber;
+		this.movieName = movieName;
+		this.date = date;
+		this.screenTime = screenTime;
+		this.reserveDate = reserveDate;
+		this.cost = cost;
+		this.personCount = personCount;
+	}
+
+	public TicketDTO(String customerName, String customerId, String seatNumber, String theatherName, String roomNumber,
             String movieName, String date, String screenTime, int cost, int personCount) {
         super();
         this.customerName = customerName;

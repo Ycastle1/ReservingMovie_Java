@@ -15,6 +15,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class SeatFrame extends JFrame {
+	ResultDialog resultDialog;
+	
 	TicketDTO ticket;
 	SeatDTO seatDto;
 	
@@ -52,15 +54,10 @@ public class SeatFrame extends JFrame {
 		seatPanel.setBounds(20, 0, 550, 700);
 		add(seatPanel);
 		
-		
-		
-
 		setSize(800, 700);
 		setVisible(true);
 	}
-//	static public void main(String[] args) {
-//		new SeatFrame();
-//	}
+	
 	class SeatPanel extends JPanel {
 		private SeatGrid seatGrid;
 		public SeatPanel() {
@@ -186,9 +183,9 @@ public class SeatFrame extends JFrame {
     						}
     						ticket.setSeatNumber(seatNumber);
     					}
-    					System.out.println(ticket.getCustomerName() + "123123");
     					con.addTicketTblColumns(ticket);
-    					new ResultFrame(); 
+    					resultDialog = new ResultDialog(); 
+    					dispose();
     				}
     			});
 	        	setVisible(true);
