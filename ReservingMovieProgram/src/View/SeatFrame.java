@@ -1,3 +1,4 @@
+package View;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,16 +20,15 @@ import DAO.TicketDAO;
 import DTO.SeatDTO;
 import DTO.TicketDTO;
 
-public class UpdatingSeatFrame extends JFrame {
+public class SeatFrame extends JFrame {
 	ResultDialog resultDialog;
-	String[] oldSeats;
-	int oldSeatsIndex;
+	
+	TicketDAO ticketDAO;
+	SeatDAO seatDAO;
 	
 	TicketDTO ticket;
 	SeatDTO seatDto;
 	
-	TicketDAO ticketDAO;
-	SeatDAO seatDAO;
 	
 	SeatPanel seatPanel;
 	InfoPanel infoPanel;
@@ -37,30 +37,16 @@ public class UpdatingSeatFrame extends JFrame {
 	ArrayList<JLabel> seatInfoLabel;
 	
 	int personCount = 0;
-	UpdatingSeatFrame(TicketDTO ticket) {
+	SeatFrame(TicketDTO ticket) {
 		setTitle("좌석 선택");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(null);
 		setResizable(false);
-
-		ticketDAO = new TicketDAO();
-		seatDAO = new SeatDAO();
 		
 		this.ticket = ticket;
-		TicketDTO oldTicket = ticket;
-
-		oldSeats = ticket.getSeatNumber().split(",");
-		for (String oldSeat : oldSeats) {
-			oldTicket.setSeatNumber(oldSeat);
-			seatDAO.refundSeat(oldTicket);
-		}
 		
        	personCount = ticket.getPersonCount();
-
-		String seats = ticket.getSeatNumber().concat(",ends"); 
-		oldSeats = seats.split(",");
-		oldSeatsIndex = 0;       	
-		
+       	
        	seatDto = new SeatDTO();
        	seatDto.setMovieName(ticket.getMovieName());
        	seatDto.setTheatherName(ticket.getTheatherName());
@@ -104,6 +90,8 @@ public class UpdatingSeatFrame extends JFrame {
 		
 		class SeatGrid extends JPanel{
 	        public SeatGrid() {
+	        	ticketDAO = new TicketDAO();
+	        	seatDAO = new SeatDAO();
 	        	setLayout(null);
 	        	
 	           	JButton btnNewButton = new JButton("예매하기");
@@ -169,15 +157,6 @@ public class UpdatingSeatFrame extends JFrame {
 		        			});
 	        			} else {
 	        				seat[i][j].setEnabled(false);
-	        				
-
-	        				if (oldSeats[oldSeatsIndex].equals(seat[i][j].getText())) {
-		        				seat[i][j].setEnabled(false);
-		        				seat[i][j].setBackground(Color.red);
-        						seatflag[i][j] = true;
-        						oldSeatsIndex++;
-        						
-	        				}
 	        			}
 	        		}
 	        		Acode++;
@@ -203,18 +182,18 @@ public class UpdatingSeatFrame extends JFrame {
     			        	}
     						String seatNumber = seatArray[0];
     						seatDto.setSeatNumber(seatArray[0]);
-    						seatDAO.reserveSeat(seatDto);
+        					seatDAO.reserveSeat(seatDto);
     						for (int i = 1; i < seatArray.length; i++) {
     							seatNumber = seatNumber.concat(", ");
     							seatNumber = seatNumber.concat(seatArray[i]);
     							
     							seatDto.setSeatNumber(seatArray[i]);
-    							seatDAO.reserveSeat(seatDto);
+            					seatDAO.reserveSeat(seatDto);
     						}
     						ticket.setSeatNumber(seatNumber);
     					}
-    					ticketDAO.updateTicketTblColumns(ticket);
-    					resultDialog = new ResultDialog("예매 수정"); 
+    					ticketDAO.addTicketTblColumns(ticket);
+    					resultDialog = new ResultDialog("예매"); 
     					dispose();
     				}
     			});
@@ -274,11 +253,6 @@ public class UpdatingSeatFrame extends JFrame {
 				seatInfoLabel.add(new JLabel("좌석 " + (i + 1)));
 				seatInfoLabel.get(i).setBounds(50, 40 * (i + 1) + 300, 70, 40);
 				add(seatInfoLabel.get(i));
-			}
-			int i = 0;
-			for (JLabel label : seatInfoLabel) {
-				label.setText(oldSeats[i]);
-				i++;
 			}
 		}
 	}
