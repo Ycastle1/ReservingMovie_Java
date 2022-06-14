@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 public class RecentReservationFrame extends JFrame {
 	ConnectDB con;
 	DetailReservationFrame drf;
+	MyActionListener mal; 
 
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
@@ -33,6 +34,7 @@ public class RecentReservationFrame extends JFrame {
 	private ResultSet rs;
 	
 	private JButton returnButton;
+	private JButton refreshButton;
 	
 	public RecentReservationFrame(TicketDTO ticket1) {
 		setTitle("상세 선택");
@@ -78,12 +80,8 @@ public class RecentReservationFrame extends JFrame {
 												rs.getInt("cost"),
 												rs.getInt("personCount"));
 				
-				goBillDialogButtonList.get(i).addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						drf = new DetailReservationFrame(ticket);
-					}
-				});
+				mal = new MyActionListener(ticket);
+				goBillDialogButtonList.get(i).addActionListener(mal);
 				
 				panel2.add(indexLabelList.get(i));
 				panel2.add(dateLabelList.get(i));
@@ -108,11 +106,86 @@ public class RecentReservationFrame extends JFrame {
 			}
 		});
 		
+		refreshButton = new JButton("새로고침");
+		panel3.add(refreshButton);
+		refreshButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int k = 0;
+				for (JLabel a : indexLabelList) {
+					indexLabelList.get(k).setVisible(false);
+					dateLabelList.get(k).setVisible(false);
+					theatherNameLabelList.get(k).setVisible(false);
+					movieNameLabelList.get(k).setVisible(false);
+					personCountLabelList.get(k).setVisible(false);
+					goBillDialogButtonList.get(k).setVisible(false);
+					k++;
+				}
+				
+				
+				rs = con.getReservationResultSet(ticket1.getCustomerId()); //ticket.getCustomerId
+				Integer i  = 0;
+				try {
+					while (rs.next()) {
+						Integer personCount = rs.getInt("personcount");
+						
+						indexLabelList.get(i).setText(i.toString());
+						dateLabelList.get(i).setText(rs.getString("date"));
+						theatherNameLabelList.get(i).setText(rs.getString("theathername"));
+						movieNameLabelList.get(i).setText(rs.getString("moviename"));
+						personCountLabelList.get(i).setText(personCount.toString() + "명");
+						
+						TicketDTO ticket = new TicketDTO(rs.getString("customerName"),
+								rs.getString("customerId"),
+								rs.getString("seatNumber"),
+								rs.getString("theatherName"),
+								rs.getString("roomNumber"),
+								rs.getString("movieName"),
+								rs.getString("date"),
+								rs.getString("screenTime"),
+								rs.getInt("cost"),
+								rs.getInt("personCount"));
+						
+						for (ActionListener al : goBillDialogButtonList.get(i).getActionListeners()) {
+							goBillDialogButtonList.get(i).removeActionListener(al);
+						}
+						mal = new MyActionListener(ticket);
+						goBillDialogButtonList.get(i).addActionListener(mal);
+						
+						indexLabelList.get(i).setVisible(true);
+						dateLabelList.get(i).setVisible(true);
+						theatherNameLabelList.get(i).setVisible(true);
+						movieNameLabelList.get(i).setVisible(true);
+						personCountLabelList.get(i).setVisible(true);
+						goBillDialogButtonList.get(i).setVisible(true);
+						
+						i++;
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
     	add(BorderLayout.NORTH, panel1);
     	add(BorderLayout.CENTER, panel2);
     	add(BorderLayout.SOUTH, panel3);
 
 		setSize(550,700);
 		setVisible(true);
+	}
+	
+	class MyActionListener implements ActionListener {
+		TicketDTO ticket;
+		public MyActionListener(TicketDTO ticket) {
+			super();
+			this.ticket = ticket;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			drf = new DetailReservationFrame(ticket);
+		}
+		
 	}
 }

@@ -267,7 +267,7 @@ public class ChooseFrame extends JFrame implements ItemListener {
 					ticket.setPersonCount(adultCount + childrenCount);
 					ticket.setCost(adultCount * 15000 + childrenCount * 10000);
 					
-
+					System.out.println(ticket);
 					ticket.setRoomNumber(con.getRoomName(ticket));
 					
 					seatFrame = new SeatFrame(ticket);

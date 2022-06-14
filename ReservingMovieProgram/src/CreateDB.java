@@ -18,7 +18,7 @@ public class CreateDB {
 			String password = "1234";
 			
 			con = DriverManager.getConnection(url, user, password); //  ���� ��ü ������.
-			System.out.println("DB 연결 성고 !");
+			System.out.println("DB 연결 성공 !");
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println("클래스");
@@ -54,9 +54,10 @@ public class CreateDB {
 			Statement stmt = con.createStatement();
 			
 			if (stmt.executeUpdate("CREATE TABLE `reservemoviedb`.`movietbl` ("
+					+ "  `roomNumber` VARCHAR(2) NOT NULL,"
 					+ "  `movieName` VARCHAR(20) NOT NULL,"
 					+ "  `moviePosterSrc` VARCHAR(45) NULL,"
-					+ "  PRIMARY KEY (`movieName`))ENGINE=InnoDB DEFAULT CHARSET=utf8;") == 1)
+					+ "  PRIMARY KEY (`roomNumber`))ENGINE=InnoDB DEFAULT CHARSET=utf8;") == 1)
 				return;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -74,10 +75,7 @@ public class CreateDB {
 					+ "  `roomNumber` VARCHAR(2) NOT NULL,"
 					+ "  `movieName` VARCHAR(20) NOT NULL,"
 					+ "  `date` VARCHAR(14) NOT NULL,"
-					+ "  `screenTime` VARCHAR(13) NOT NULL,"
-					+ "  CONSTRAINT `FK_movietbl_theathertbl`"
-					+ "  FOREIGN KEY (`movieName`)"
-					+ "  REFERENCES `reservemoviedb`.`movietbl` (`movieName`))ENGINE=InnoDB DEFAULT CHARSET=utf8;") == 1)
+					+ "  `screenTime` VARCHAR(13) NOT NULL);") == 1)
 				return;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -97,10 +95,7 @@ public class CreateDB {
 					+ "  `seatnumber` VARCHAR(4) NOT NULL,"
 					+ "  `screentime` VARCHAR(13) NOT NULL,"
 					+ "  `date` VARCHAR(14) NOT NULL,"
-					+ "  `reserved` INT NULL,"
-					+ "  CONSTRAINT `FK_movietbl_seattbl`"
-					+ "  FOREIGN KEY (`movieName`)"
-					+ "  REFERENCES `reservemoviedb`.`movietbl` (`movieName`))ENGINE=InnoDB DEFAULT CHARSET=utf8;") == 1)
+					+ "  `reserved` INT NULL);") == 1)
 				return;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -123,10 +118,7 @@ public class CreateDB {
 					+ "  `date` VARCHAR(14) NOT NULL,"
 					+ "  `screentime` VARCHAR(13) NOT NULL,"
 					+ "  `cost` INT NOT NULL,"
-					+ "  `personCount` INT NOT NULL,"
-					+ "  CONSTRAINT `FK_customertbl_tickettbl`"
-					+ "  FOREIGN KEY (`customerId`)"
-					+ "  REFERENCES `reservemoviedb`.`customertbl` (`customerId`))ENGINE=InnoDB DEFAULT CHARSET=utf8;") == 1)
+					+ "  `personCount` INT NOT NULL);") == 1)
 				return;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -142,45 +134,51 @@ public class CreateDB {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append("INSERT INTO movietbl ");
-		sql.append("VALUES (?, ?)");
+		sql.append("VALUES (?, ?, ?)");
 		
 		PreparedStatement pstmt;
 		try {
 			pstmt = con.prepareStatement(sql.toString());
 	
 
-			pstmt.setString(1, "범죄도시2");
-			pstmt.setString(2, "./Moive_image/moive1.png");
+    		pstmt.setString(1, "1");
+			pstmt.setString(2, "범죄도시2");
+			pstmt.setString(3, "./Moive_image/moive1.png");
     		if (pstmt.executeUpdate() == 1) 
     			System.out.println("INSERT 성공");
     		else
     			System.out.println("INSERT 실패");
-    		pstmt.setString(1, "닥터스트레인지2");
-			pstmt.setString(2, "./Moive_image/moive2.jpg");
+    		pstmt.setString(1, "2");
+    		pstmt.setString(2, "닥터스트레인지2");
+			pstmt.setString(3, "./Moive_image/moive2.jpg");
     		if (pstmt.executeUpdate() == 1) 
     			System.out.println("INSERT 성공");
     		else
     			System.out.println("INSERT 실패");
-    		pstmt.setString(1, "베놈2");
-			pstmt.setString(2, "./Moive_image/moive3.jpg");
+    		pstmt.setString(1, "3");
+    		pstmt.setString(2, "베놈2");
+			pstmt.setString(3, "./Moive_image/moive3.jpg");
     		if (pstmt.executeUpdate() == 1) 
     			System.out.println("INSERT 성공");
     		else
     			System.out.println("INSERT 실패");
-    		pstmt.setString(1, "스파이더맨3");
-			pstmt.setString(2, "./Moive_image/moive4.jpg");
+    		pstmt.setString(1, "4");
+    		pstmt.setString(2, "스파이더맨3");
+			pstmt.setString(3, "./Moive_image/moive4.jpg");
     		if (pstmt.executeUpdate() == 1) 
     			System.out.println("INSERT 성공");
     		else
     			System.out.println("INSERT 실패");
-    		pstmt.setString(1, "공기살인");
-			pstmt.setString(2, "./Moive_image/moive5.jpg");
+    		pstmt.setString(1, "5");
+    		pstmt.setString(2, "공기살인");
+			pstmt.setString(3, "./Moive_image/moive5.jpg");
     		if (pstmt.executeUpdate() == 1) 
     			System.out.println("INSERT 성공");
     		else
     			System.out.println("INSERT 실패");
-    		pstmt.setString(1, "마녀2");
-			pstmt.setString(2, "./Moive_image/moive6.jpg");
+    		pstmt.setString(1, "6");
+    		pstmt.setString(2, "마녀2");
+			pstmt.setString(3, "./Moive_image/moive6.jpg");
     		if (pstmt.executeUpdate() == 1) 
     			System.out.println("INSERT 성공");
     		else
@@ -2556,4 +2554,406 @@ public class CreateDB {
 		con.createSeatTblColumns();
 		System.out.println("끝.");
 	}
+	
+	public boolean createNewMovieColumns(int roomNumber, String name) {
+		Connection con = createDB();
+		
+		StringBuilder sql1 = new StringBuilder();
+		ArrayList<String> screenTimeArrayList = new ArrayList<>();
+		
+		sql1.append("INSERT INTO theathertbl ");
+		sql1.append("VALUES (?, ?, ?, ?, ?)");
+		
+		screenTimeArrayList.add("9:00 ~ 10:47");
+		screenTimeArrayList.add("12:00 ~ 13:47");
+		screenTimeArrayList.add("15:00 ~ 16:47");
+		screenTimeArrayList.add("18:00 ~ 19:47");
+		screenTimeArrayList.add("21:00 ~ 22:47");
+		
+		PreparedStatement pstmt1;
+		
+		Integer num = roomNumber;
+		String room = num.toString();
+		try {
+			pstmt1 = con.prepareStatement(sql1.toString());
+
+			pstmt1.setString(4, "2022.6.10");
+			pstmt1.setString(3, name);
+			pstmt1.setString(2, room);
+			
+			
+			pstmt1.setString(1, "송내점");
+			
+			for (String screenTime : screenTimeArrayList) {
+				pstmt1.setString(5, screenTime);
+				
+	    		if (pstmt1.executeUpdate() == 1) 
+	    			System.out.println("INSERT 성공");
+	    		else
+	    			System.out.println("INSERT 실패");
+			}
+			
+			pstmt1.setString(1, "주안점");
+			
+			for (String screenTime : screenTimeArrayList) {
+				pstmt1.setString(5, screenTime);
+				
+	    		if (pstmt1.executeUpdate() == 1) 
+	    			System.out.println("INSERT 성공");
+	    		else
+	    			System.out.println("INSERT 실패");
+			}
+			
+			pstmt1.setString(1, "의정부점");
+			
+			for (String screenTime : screenTimeArrayList) {
+				pstmt1.setString(5, screenTime);
+				
+	    		if (pstmt1.executeUpdate() == 1) 
+	    			System.out.println("INSERT 성공");
+	    		else
+	    			System.out.println("INSERT 실패");
+			}
+			
+			pstmt1.setString(1, "부천점");
+			
+			for (String screenTime : screenTimeArrayList) {
+				pstmt1.setString(5, screenTime);
+				
+	    		if (pstmt1.executeUpdate() == 1) 
+	    			System.out.println("INSERT 성공");
+	    		else
+	    			System.out.println("INSERT 실패");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		char Acode = 65;
+		String Aseat;
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append("INSERT INTO seattbl ");
+		sql.append("VALUES (?, ?, ?, ?, ?, ?, 0)");
+		
+		PreparedStatement pstmt;
+		try {
+			pstmt = con.prepareStatement(sql.toString());
+	
+
+			pstmt.setString(6, "2022.6.10");
+			pstmt.setString(3, name);
+			pstmt.setString(2, room);
+
+			pstmt.setString(1, "송내점");
+			
+			pstmt.setString(5, "9:00 ~ 10:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) { //a좌석에 1번부터 받아오기
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "12:00 ~ 13:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "15:00 ~ 16:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "18:00 ~ 19:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "21:00 ~ 22:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			pstmt.setString(1, "주안점");
+			
+			pstmt.setString(5, "9:00 ~ 10:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) { //a좌석에 1번부터 받아오기
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "12:00 ~ 13:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "15:00 ~ 16:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "18:00 ~ 19:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "21:00 ~ 22:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			pstmt.setString(1, "의정부점");
+			
+			pstmt.setString(5, "9:00 ~ 10:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) { //a좌석에 1번부터 받아오기
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "12:00 ~ 13:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "15:00 ~ 16:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "18:00 ~ 19:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "21:00 ~ 22:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			pstmt.setString(1, "부천점");
+			
+			pstmt.setString(5, "9:00 ~ 10:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) { //a좌석에 1번부터 받아오기
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "12:00 ~ 13:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "15:00 ~ 16:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "18:00 ~ 19:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}  			
+			Acode = 65;
+			
+			pstmt.setString(5, "21:00 ~ 22:47");
+			for (int i = 0; i < 10; i++) {
+				Aseat = String.valueOf(Acode);
+			
+				for (int j = 0; j < 10; j++) {
+    				pstmt.setString(4, Aseat + (j + 1));
+    				if (pstmt.executeUpdate() == 1) 
+    					System.out.println("INSERT 성공");
+    				else
+    					System.out.println("INSERT 실패");
+	    		}
+	    		Acode++;
+			}
+			return true;
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    		return false;
+    	}
+	}
+	
 }
