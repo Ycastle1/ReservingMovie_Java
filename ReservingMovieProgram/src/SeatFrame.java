@@ -14,13 +14,20 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import DAO.SeatDAO;
+import DAO.TicketDAO;
+import DTO.SeatDTO;
+import DTO.TicketDTO;
+
 public class SeatFrame extends JFrame {
 	ResultDialog resultDialog;
+	
+	TicketDAO ticketDAO;
+	SeatDAO seatDAO;
 	
 	TicketDTO ticket;
 	SeatDTO seatDto;
 	
-	ConnectDB con;
 	
 	SeatPanel seatPanel;
 	InfoPanel infoPanel;
@@ -82,7 +89,8 @@ public class SeatFrame extends JFrame {
 		
 		class SeatGrid extends JPanel{
 	        public SeatGrid() {
-	        	con = new ConnectDB();
+	        	ticketDAO = new TicketDAO();
+	        	seatDAO = new SeatDAO();
 	        	setLayout(null);
 	        	
 	           	JButton btnNewButton = new JButton("예매하기");
@@ -114,7 +122,7 @@ public class SeatFrame extends JFrame {
 	        			
 	        			ticket.setSeatNumber(seat[i][j].getText());
 	                 
-	        			if (!con.checkReserved(ticket)) {
+	        			if (!seatDAO.checkReserved(ticket)) {
 	        				seat[i][j].addMouseListener(new MouseAdapter() {
 		        				@Override
 								public void mouseClicked(MouseEvent e) {
@@ -173,17 +181,17 @@ public class SeatFrame extends JFrame {
     			        	}
     						String seatNumber = seatArray[0];
     						seatDto.setSeatNumber(seatArray[0]);
-        					con.reserveSeat(seatDto);
+        					seatDAO.reserveSeat(seatDto);
     						for (int i = 1; i < seatArray.length; i++) {
     							seatNumber = seatNumber.concat(", ");
     							seatNumber = seatNumber.concat(seatArray[i]);
     							
     							seatDto.setSeatNumber(seatArray[i]);
-            					con.reserveSeat(seatDto);
+            					seatDAO.reserveSeat(seatDto);
     						}
     						ticket.setSeatNumber(seatNumber);
     					}
-    					con.addTicketTblColumns(ticket);
+    					ticketDAO.addTicketTblColumns(ticket);
     					resultDialog = new ResultDialog("예매"); 
     					dispose();
     				}

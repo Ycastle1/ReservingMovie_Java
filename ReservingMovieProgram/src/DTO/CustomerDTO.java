@@ -1,3 +1,4 @@
+package DTO;
 
 public class CustomerDTO {
 	private String customerId;

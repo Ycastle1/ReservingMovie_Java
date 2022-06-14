@@ -1,3 +1,4 @@
+package DTO;
 
 public class SeatDTO {
 	private String theatherName;

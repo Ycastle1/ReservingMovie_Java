@@ -1,3 +1,4 @@
+package DTO;
 public class MovieDTO {
 	private int roomNumber;
 	private String movieName;

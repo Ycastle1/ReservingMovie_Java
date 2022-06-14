@@ -14,6 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import DAO.SeatDAO;
+import DAO.TicketDAO;
+import DTO.SeatDTO;
+import DTO.TicketDTO;
+
 public class UpdatingSeatFrame extends JFrame {
 	ResultDialog resultDialog;
 	String[] oldSeats;
@@ -22,7 +27,8 @@ public class UpdatingSeatFrame extends JFrame {
 	TicketDTO ticket;
 	SeatDTO seatDto;
 	
-	ConnectDB con;
+	TicketDAO ticketDAO;
+	SeatDAO seatDAO;
 	
 	SeatPanel seatPanel;
 	InfoPanel infoPanel;
@@ -37,7 +43,8 @@ public class UpdatingSeatFrame extends JFrame {
 		setLayout(null);
 		setResizable(false);
 
-    	con = new ConnectDB();
+		ticketDAO = new TicketDAO();
+		seatDAO = new SeatDAO();
 		
 		this.ticket = ticket;
 		TicketDTO oldTicket = ticket;
@@ -45,7 +52,7 @@ public class UpdatingSeatFrame extends JFrame {
 		oldSeats = ticket.getSeatNumber().split(",");
 		for (String oldSeat : oldSeats) {
 			oldTicket.setSeatNumber(oldSeat);
-			con.refundSeat(oldTicket);
+			seatDAO.refundSeat(oldTicket);
 		}
 		
        	personCount = ticket.getPersonCount();
@@ -128,7 +135,7 @@ public class UpdatingSeatFrame extends JFrame {
 	        			
 	        			ticket.setSeatNumber(seat[i][j].getText());
 	                 
-	        			if (!con.checkReserved(ticket)) {
+	        			if (!seatDAO.checkReserved(ticket)) {
 	        				seat[i][j].addMouseListener(new MouseAdapter() {
 		        				@Override
 								public void mouseClicked(MouseEvent e) {
@@ -196,17 +203,17 @@ public class UpdatingSeatFrame extends JFrame {
     			        	}
     						String seatNumber = seatArray[0];
     						seatDto.setSeatNumber(seatArray[0]);
-        					con.reserveSeat(seatDto);
+    						seatDAO.reserveSeat(seatDto);
     						for (int i = 1; i < seatArray.length; i++) {
     							seatNumber = seatNumber.concat(", ");
     							seatNumber = seatNumber.concat(seatArray[i]);
     							
     							seatDto.setSeatNumber(seatArray[i]);
-            					con.reserveSeat(seatDto);
+    							seatDAO.reserveSeat(seatDto);
     						}
     						ticket.setSeatNumber(seatNumber);
     					}
-    					con.updateTicketTblColumns(ticket);
+    					ticketDAO.updateTicketTblColumns(ticket);
     					resultDialog = new ResultDialog("예매 수정"); 
     					dispose();
     				}

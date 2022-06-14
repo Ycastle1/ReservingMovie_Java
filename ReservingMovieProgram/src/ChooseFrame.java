@@ -22,6 +22,9 @@ import javax.swing.event.ListSelectionListener;
 
 import com.toedter.calendar.JCalendar;
 
+import DAO.TicketDAO;
+import DTO.TicketDTO;
+
 public class ChooseFrame extends JFrame implements ItemListener {
 	
 	private TicketDTO ticket;
@@ -259,7 +262,7 @@ public class ChooseFrame extends JFrame implements ItemListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ConnectDB con = new ConnectDB();
+				TicketDAO ticketDAO = new TicketDAO();
 				if(e.getSource() == btnNewButton) {
 					ticket.setTheatherName(theatherName);
 					ticket.setDate(date);
@@ -268,7 +271,7 @@ public class ChooseFrame extends JFrame implements ItemListener {
 					ticket.setCost(adultCount * 15000 + childrenCount * 10000);
 					
 					System.out.println(ticket);
-					ticket.setRoomNumber(con.getRoomName(ticket));
+					ticket.setRoomNumber(ticketDAO.getRoomName(ticket));
 					
 					seatFrame = new SeatFrame(ticket);
 					dispose();

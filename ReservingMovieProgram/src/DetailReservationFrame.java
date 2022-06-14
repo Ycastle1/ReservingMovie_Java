@@ -14,6 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import DAO.TicketDAO;
+import DTO.CustomerDTO;
+import DTO.TicketDTO;
+
 public class DetailReservationFrame extends JFrame {
 
    private JPanel cpane;
@@ -46,7 +50,7 @@ public class DetailReservationFrame extends JFrame {
       cpane.setLayout(null);
       setResizable(false);
 
-      ConnectDB con = new ConnectDB();
+      TicketDAO ticketDAO = new TicketDAO();
 
       JLabel la_log = new JLabel("영수증");
       JLabel moive_name = new JLabel("상영 영화 :");
@@ -127,7 +131,7 @@ public class DetailReservationFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (con.deleteTicketTblColumns(ticket)) {
+				if (ticketDAO.deleteTicketTblColumns(ticket)) {
 					new ResultDialog("삭제");
 					dispose();
 				} else {

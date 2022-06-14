@@ -11,8 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import DAO.TicketDAO;
+import DTO.TicketDTO;
+
 public class RecentReservationFrame extends JFrame {
-	ConnectDB con;
+	TicketDAO ticketDAO;
+	
 	DetailReservationFrame drf;
 	MyActionListener mal; 
 
@@ -42,14 +46,14 @@ public class RecentReservationFrame extends JFrame {
 		setResizable(false);
 		setLayout(new BorderLayout());
 		
-		con = new ConnectDB();
+		ticketDAO = new TicketDAO();
 		
 		titleLabel = new JLabel("예매 내역");
 		titleLabel.setFont(new Font("굴림", Font.BOLD, 16));
 		panel1.add(titleLabel);
 		
 		panel2.setLayout(null);
-		rs = con.getReservationResultSet(ticket1.getCustomerId()); //ticket.getCustomerId
+		rs = ticketDAO.getReservationResultSet(ticket1.getCustomerId()); //ticket.getCustomerId
 		Integer i  = 0;
 		try {
 			while (rs.next()) {
@@ -123,7 +127,7 @@ public class RecentReservationFrame extends JFrame {
 				}
 				
 				
-				rs = con.getReservationResultSet(ticket1.getCustomerId()); //ticket.getCustomerId
+				rs = ticketDAO.getReservationResultSet(ticket1.getCustomerId()); //ticket.getCustomerId
 				Integer i  = 0;
 				try {
 					while (rs.next()) {

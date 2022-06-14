@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import DAO.MovieDAO;
+import DTO.MovieDTO;
+
 public class UpdateDialog extends JDialog {
 	private JFileChooser chooser;
 	FileNameExtensionFilter filter;
@@ -18,8 +21,8 @@ public class UpdateDialog extends JDialog {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(null);
 
+		MovieDAO movieDAO = new MovieDAO();
 
-		ConnectDB con = new ConnectDB();
 		JTextField movieName = new JTextField(movie.getMovieName());
 		JTextField movieSrc = new JTextField(movie.getMoviePosterSrc());
 		JButton checkFilePathBtn = new JButton("찾아보기");
@@ -59,7 +62,7 @@ public class UpdateDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (con.updateMovieInfo(movie.getRoomNumber(), movieName.getText(), movieSrc.getText())) {
+				if (movieDAO.updateMovieInfo(movie.getRoomNumber(), movieName.getText(), movieSrc.getText())) {
 					System.out.println(movie.getRoomNumber());
 					new ResultDialog("수정");
 					dispose();

@@ -11,6 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import DAO.MovieDAO;
+import DTO.MovieDTO;
+import DTO.TicketDTO;
+
 public class MenuFrame extends JFrame{
 	RecentReservationFrame rrf;	
 	TicketDTO ticket;
@@ -60,8 +64,8 @@ public class MenuFrame extends JFrame{
     	setTitle("극장");
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	setResizable(false);
-    	
-    	ConnectDB con = new ConnectDB();
+
+    	MovieDAO movieDAO = new MovieDAO();
     	
     	this.ticket = ticket;
     	JPanel panel = new JPanel();
@@ -70,7 +74,7 @@ public class MenuFrame extends JFrame{
     	  
     	JLabel label = new JLabel("영화를 선택해주세요.");
 
-    	movieList = con.getMovieList(movieList);
+    	movieList = movieDAO.getMovieList(movieList);
     	
     	img1 = new ImageIcon(movieList[0].getMoviePosterSrc());
     	img2 = new ImageIcon(movieList[1].getMoviePosterSrc());

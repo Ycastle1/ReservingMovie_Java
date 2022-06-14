@@ -9,6 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import DAO.CustomerDAO;
+import DTO.CustomerDTO;
+
 public class SignUpFrame extends JFrame {
 
 	private JPanel cpane;
@@ -101,9 +104,9 @@ public class SignUpFrame extends JFrame {
 				customer.setCustomerEmail(textField_em.getText());
 				customer.setCustomerPhoneNumber(textField_num.getText());
 				
-				ConnectDB con = new ConnectDB();
+				CustomerDAO customerDAO = new CustomerDAO();
 				
-				con.registerCustomer(customer);
+				customerDAO.registerCustomer(customer);
 			}
 		});
 		

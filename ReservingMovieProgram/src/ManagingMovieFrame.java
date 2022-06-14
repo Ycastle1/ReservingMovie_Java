@@ -10,8 +10,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import DAO.MovieDAO;
+import DTO.MovieDTO;
+
 public class ManagingMovieFrame extends JFrame {
-	ConnectDB con;
+	
+	MovieDAO movieDAO;
 
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
@@ -38,14 +42,14 @@ public class ManagingMovieFrame extends JFrame {
 		setResizable(false);
 		setLayout(new BorderLayout());
 		
-		con = new ConnectDB();
+		movieDAO = new MovieDAO();
 		
 		titleLabel = new JLabel("상영 영화 정보");
 		titleLabel.setFont(new Font("굴림", Font.BOLD, 16));
 		panel1.add(titleLabel);
 		
 		panel2.setLayout(null);
-		rs = con.getMovieResultSet(); //ticket.getCustomerId
+		rs = movieDAO.getMovieResultSet(); //ticket.getCustomerId
 		try {
 			int i = 0;
 			while (rs.next()) {
@@ -87,7 +91,7 @@ public class ManagingMovieFrame extends JFrame {
 						System.out.println(j);
 						if (!movieNameLabelList[j].getText().equals("null")) {
 							System.out.println(j);
-							if (con.updateMovieInfo(j + 1, "null", "./Moive_image/empty.png")) {
+							if (movieDAO.updateMovieInfo(j + 1, "null", "./Moive_image/empty.png")) {
 								new ResultDialog("삭제");
 							} else {
 								System.out.println("삭제 오류.");
@@ -116,7 +120,7 @@ public class ManagingMovieFrame extends JFrame {
 		refreshBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				rs = con.getMovieResultSet(); //ticket.getCustomerId
+				rs = movieDAO.getMovieResultSet(); //ticket.getCustomerId
 				try {
 					int i = 0;
 					while (rs.next()) {
